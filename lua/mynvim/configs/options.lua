@@ -36,9 +36,9 @@ set.grepformat = "%f:%l:%c:%m"
 set.grepprg = "rg --vimgrep"
 
 set.guifont = {
-    "JetBrainsMono_Nerd_Font_Mono:h12.000000",
-    "Inconsolata-dz_for_Powerline:h10",
-    "Monospace 11"
+    "JetBrainsMono_Nerd_Font_Mono:h14.000000",
+    "Inconsolata-dz_for_Powerline:h12",
+    "Monospace 12"
 }
 
 if vim.g.gonvim_running then
@@ -46,12 +46,3 @@ if vim.g.gonvim_running then
     set.columns = 165
 end
 
--- TODO move lines and columns to gui settings
-if vim.fn.has('win32') == 1 then
--- set.lines = 40
--- set.columns = 120
-elseif vim.fn.has('mac') == 1 then
--- set lines = 60
--- set.columns = 120
-else
-end
