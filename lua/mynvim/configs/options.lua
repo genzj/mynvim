@@ -36,13 +36,13 @@ set.grepformat = "%f:%l:%c:%m"
 set.grepprg = "rg --vimgrep"
 
 set.guifont = {
-    "JetBrainsMono_Nerd_Font_Mono:h14.000000",
+    "JetBrainsMono_Nerd_Font:h13.000000",
     "Inconsolata-dz_for_Powerline:h12",
     "Monospace 12"
 }
 
 if vim.g.gonvim_running then
-    set.lines = 66
-    set.columns = 165
+    set.lines = 60
+    set.columns = 162
 end
 

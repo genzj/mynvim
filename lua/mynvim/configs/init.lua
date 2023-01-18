@@ -1,5 +1,7 @@
 local M = {}
 
+M.icons = require("mynvim.configs.icons").icons
+
 function M.setup()
     -- inspired by the gh:LazyVim/LazyVim
     -- https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/config/init.lua#L81
