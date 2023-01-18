@@ -29,10 +29,6 @@ function! EnablePowerline() abort
 endfunction
 
 if has("gui_running")
-    " no menu, toolbar and
-    set guioptions=e
-    set encoding=utf-8
-    set laststatus=2 " always show status line
     colorscheme solarized8
 else
     " in case want to use solarized theme in terminal
@@ -65,20 +61,6 @@ try
 catch
 endtry
 
-" In many terminal emulators the mouse works just fine, thus enable it.
-if has('mouse')
-  " ttymouse must be set before use mouse
-  " otherwise a hanging would happen
-  set mouse=a
-endif
-
-" Switch syntax highlighting on, when the terminal has colors
-" Also switch on highlighting the last used search pattern.
-if &t_Co > 2 || has("gui_running")
-  syntax on
-  set hlsearch
-endif
-
 " }}}
 
 " Auto commands -------------------- {{{
@@ -97,34 +79,34 @@ if has("autocmd")
     au!
 
     " For all text files set 'textwidth' to 78 characters.
-    autocmd FileType text setlocal textwidth=78
+    " autocmd FileType text setlocal textwidth=78
 
     " Auto fold my vimrc file
-    autocmd BufReadPost $MYVIMRC setlocal foldmethod=marker
-    autocmd BufReadPost $MYVIMRC setlocal foldlevel=0
-    autocmd BufReadPost $P2VIMRC setlocal foldmethod=marker
-    autocmd BufReadPost $P2VIMRC setlocal foldlevel=0
+    " autocmd BufReadPost $MYVIMRC setlocal foldmethod=marker
+    " autocmd BufReadPost $MYVIMRC setlocal foldlevel=0
+    " autocmd BufReadPost $P2VIMRC setlocal foldmethod=marker
+    " autocmd BufReadPost $P2VIMRC setlocal foldlevel=0
 
   " When editing a file, always jump to the last known cursor position.
   " Don't do it when the position is invalid or when inside an event handler
   " (happens when dropping a file on gvim).
   " Also don't do it when the mark is in the first line, that is the default
   " position when opening a file.
-  autocmd BufReadPost *
-    \ if line("'\"") > 1 && line("'\"") <= line("$") |
-    \   exe "normal! g`\"" |
-    \ endif
+  " autocmd BufReadPost *
+    " \ if line("'\"") > 1 && line("'\"") <= line("$") |
+    " \   exe "normal! g`\"" |
+    " \ endif
 
   "When .vimrc isedited, reload it
-  autocmd bufwritepost $MYVIMRC source $MYVIMRC
-  autocmd bufwritepost $MYVIMRC :echom "Lastest vimrc loaded!"
+  " autocmd bufwritepost $MYVIMRC source $MYVIMRC
+  " autocmd bufwritepost $MYVIMRC :echom "Lastest vimrc loaded!"
   "When phase2 vimrc isedited, reload it
-  if file_readable(expand($MYVIMRC))
-      autocmd bufwritepost $P2VIMRC source $MYVIMRC
-  else
-      autocmd bufwritepost $P2VIMRC source $P2VIMRC
-  endif
-  autocmd bufwritepost $P2VIMRC :echom "Lastest phase2 vimrc loaded!"
+  " if file_readable(expand($MYVIMRC))
+      " autocmd bufwritepost $P2VIMRC source $MYVIMRC
+  " else
+      " autocmd bufwritepost $P2VIMRC source $P2VIMRC
+  " endif
+  " autocmd bufwritepost $P2VIMRC :echom "Lastest phase2 vimrc loaded!"
 
   augroup END
 
@@ -184,34 +166,6 @@ endif
 
 
 "Key Mappings -------------------- {{{
-
-"map <silent> <F9> :TlistUpdate<CR>:TlistToggle<CR>
-map <silent> <F9> :TagbarToggle<CR>
-map <silent> <F10> :MBEToggle<cr>
-
-noremap <C-Tab> <C-W>w
-"Jump to next window
-noremap <C-S-Tab> <C-W>W
-"Jump to prev window
-nnoremap <silent> <up> :wincmd k<CR>
-nnoremap <silent> <down> :wincmd j<CR>
-nnoremap <silent> <right> :wincmd l<CR>
-nnoremap <silent> <left> :wincmd h<CR>
-
-"Copy all to clipboard
-nnoremap ,ya :%y+<CR>
-
-nnoremap <F3> :NERDTreeToggle<CR>
-"Open NERD Tree explorer
-
-nnoremap <silent><F12> :nohls<CR>
-"hide highlight search
-
-nnoremap <silent><F11> :exe ":silent call libcallnr(\"gvimfullscreen.dll\", \"ToggleFullScreen\", 0)"<CR>
-"toggle fullscreen
-
-nnoremap <C-F3> :NERDTreeFind<CR>
-"Find current file in NERD Tree explorer
 
 if has("win32")
     let g:my_shell="git-bash.exe"
