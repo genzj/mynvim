@@ -1,6 +1,5 @@
 local set = require('mynvim.utils.keymap').set
 
-
 -- Don't use Ex mode, use Q for formatting
 set('map', 'Q', 'gq')
 
@@ -28,7 +27,7 @@ set('nnoremap', '<F3>', ':NERDTreeToggle<CR>')
 set('nnoremap', '<silent><F12>', ':nohls<CR>')
 
 -- toggle fullscreen
-set('nnoremap', '<silent><F11>', ':exe ":silent call libcallnr(\"gvimfullscreen.dll\", \"ToggleFullScreen\", 0)"<CR>')
+set('nnoremap', '<silent><C-F11>', '<cmd>GonvimFullscreen "toggle"<cr>')
 
 -- Find current file in NERD Tree explorer
 set('nnoremap', '<C-F3>', ':NERDTreeFind<CR>')
@@ -86,4 +85,10 @@ set('nnoremap', '<leader>cd', ':cd %:p:h<CR>:pwd<CR>')
 set('nnoremap', '<C-PageDown>', ':cnext<CR>')
 set('nnoremap', '<C-PageUp>', ':cprevious<CR>')
 set('nnoremap', '<leader>a', ':<C-u>call scraps#ToggleQuickfixErrorWindow()<CR>')
+
+if vim.g.gonvim_running == 1 then
+    set('nnoremap', '<D-v>', 'a<C-r>+<Esc>')
+    set('inoremap', '<D-v>', '<C-r>+')
+    set('cnoremap', '<D-v>', '<C-r>+')
+end
 
