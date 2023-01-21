@@ -57,7 +57,13 @@ return {
                             cond = function() return package.loaded["noice"] and require("noice").api.status.mode.has() end,
                             color = fg("Constant") ,
                         },
-                        { require("lazy.status").updates, cond = require("lazy.status").has_updates, color = fg("Special") },
+                        {
+                            require("noice").api.status.search.get,
+                            cond = require("noice").api.status.search.has,
+                            color = fg("WarningMsg"),
+                        },
+                        -- Lazy update indicator
+                        -- { require("lazy.status").updates, cond = require("lazy.status").has_updates, color = fg("Special") },
                         {
                             "diff",
                             symbols = {

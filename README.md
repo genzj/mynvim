@@ -16,3 +16,8 @@ To install or upgrade Python dependencies:
 pip install -U -r requirements.txt
 ```
 
+
+```vimscript
+exe 'luafile '.stdpath('config').'/mynvimrc.lua'
+```
+
