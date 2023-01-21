@@ -15,7 +15,7 @@ function M.setup()
         end,
     })
 
-    if vim.fn.argc() == 0 or true then
+    if vim.fn.argc() == 0 then
         -- autocmds and keymaps can wait to load
         vim.api.nvim_create_autocmd("User", {
             group = group,

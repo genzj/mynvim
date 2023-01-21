@@ -15,7 +15,7 @@ set.shiftwidth = 4 --  --
 set.expandtab = true -- expand tab and use space by default
 
 set.sbr = '->' -- chars before a wraped line
-set.listchars = 'tab:>-,eol:$' -- tab & eol char
+set.listchars = 'space:⋅,tab:>-,eol:$' -- tab & eol char
 set.list = false -- not show tabs and EOLs by default
 
 set.foldmethod = 'syntax' -- set fold
@@ -30,6 +30,8 @@ set.scrolloff = 4 -- Lines of context
 set.sidescrolloff = 8 -- Columns of context
 
 set.signcolumn = "yes" -- Always show the signcolumn, otherwise it would shift the text each time
+
+set.timeoutlen = 5000 -- Longer timeout for leader cmds
 
 -- using rg for grep
 set.grepformat = "%f:%l:%c:%m"
