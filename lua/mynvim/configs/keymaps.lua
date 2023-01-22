@@ -12,41 +12,30 @@ set('noremap', '<C-Tab>', '<C-W>w')
 set('noremap', '<C-S-Tab>', '<C-W>W')
 
 -- move between windows
-set('nnoremap', '<silent><up>', ':wincmd k<CR>')
-set('nnoremap', '<silent><down>', ':wincmd j<CR>')
-set('nnoremap', '<silent><right>', ':wincmd l<CR>')
-set('nnoremap', '<silent><left>', ':wincmd h<CR>')
+set('nnoremap', '<silent><up>', '<Cmd>wincmd k<CR>')
+set('nnoremap', '<silent><down>', '<Cmd>wincmd j<CR>')
+set('nnoremap', '<silent><right>', '<Cmd>wincmd l<CR>')
+set('nnoremap', '<silent><left>', '<Cmd>wincmd h<CR>')
 
 -- Copy all to clipboard
-set('nnoremap', ',ya', ':%y+<CR>')
-
--- Open NERD Tree explorer
-set('nnoremap', '<F3>', ':NERDTreeToggle<CR>')
+set('nnoremap', ',ya', '<Cmd>%y+<CR>')
 
 -- hide highlight search
-set('nnoremap', '<silent><F12>', ':nohls<CR>')
-
--- toggle fullscreen
-set('nnoremap', '<silent><C-F11>', '<cmd>GonvimFullscreen "toggle"<cr>')
-
--- Find current file in NERD Tree explorer
-set('nnoremap', '<C-F3>', ':NERDTreeFind<CR>')
+set('nnoremap', '<silent><F12>', '<Cmd>nohls<CR>')
 
 -- Open Python 3 console
-set('nnoremap', '<leader>zp', ':!python3<CR>')
-
--- Save and make current file
-set('nnoremap', '<leader>zm', ':w<CR>:make<CR>')
+set('nnoremap', '<leader>zp', '<Cmd>!python3<CR>')
 
 -- toggle show list
-set('noremap', '<silent><leader>ol', ':set list!<CR>')
+set('noremap', '<silent><leader>ol', '<Cmd>set list!<CR>')
 
 -- toggle read only
-set('noremap', '<silent><leader>oro', ':set readonly!<CR>')
+set('noremap', '<silent><leader>or', '<Cmd>set readonly!<CR>')
 
 -- toggle indent guides
-set('nmap', '<silent><Leader>og', '<Plug>IndentGuidesToggle')
+set('nmap', '<silent><Leader>og', '<Cmd>IndentBlanklineToggle!<CR>')
 
+-- TODO omni completion
 -- Super-Tab keymap
 -- Enter the chosen one when the menu is visible
 set('inoremap', '<expr><CR>', 'pumvisible()?"<C-Y>":"<CR>"')
@@ -57,11 +46,10 @@ set('inoremap', '<expr><C-k>', 'pumvisible()?"<PageUp>":"<C-k>"')
 set('inoremap', '<expr>j', 'pumvisible()?"<Down>":"j"')
 set('inoremap', '<expr>k', 'pumvisible()?"<Up>":"k"')
 
-set('noremap', '<leader>zw', '<C-W>=1<C-W><C-W>1<C-W>_')
-
 -- scroll one page
 set('nnoremap', '<space>', 'Lzt')
 
+-- TODO surround
 -- Add quotes, parentheses or brcakets around chosen text"
 set('vmap', '<leader>"', 'S"')
 set('vmap', '<leader>\'', 'S\'')
@@ -74,19 +62,20 @@ set('vmap', '<leader><', 'S<')
 set('nnoremap', '<S-space>', 'i')
 set('inoremap', '<S-space>', '<Esc>')
 
--- Open git status
-set('nnoremap', '<leader>gs', ':Gstatus<cr>')
-
 -- Change cwd to the file path
 set('nnoremap', '<leader>cd', ':cd %:p:h<CR>:pwd<CR>')
 
---  Jump to next error with Ctrl-n and previous error with Ctrl-m. Close the
+--  Jump to next error with Ctrl-pd and previous error with Ctrl-pu. Close the
 --  quickfix window with <leader>a
 set('nnoremap', '<C-PageDown>', ':cnext<CR>')
 set('nnoremap', '<C-PageUp>', ':cprevious<CR>')
-set('nnoremap', '<leader>a', ':<C-u>call scraps#ToggleQuickfixErrorWindow()<CR>')
+-- TODO toggle lsp?
+-- set('nnoremap', '<leader>a', ':<C-u>call scraps#ToggleQuickfixErrorWindow()<CR>')
 
 if vim.g.gonvim_running == 1 then
+    -- toggle fullscreen
+    set('nnoremap', '<silent><C-F11>', '<cmd>GonvimFullscreen "toggle"<cr>')
+
     set('nnoremap', '<D-v>', 'a<C-r>+<Esc>')
     set('inoremap', '<D-v>', '<C-r>+')
     set('cnoremap', '<D-v>', '<C-r>+')
