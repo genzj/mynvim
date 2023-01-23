@@ -69,8 +69,6 @@ set('nnoremap', '<leader>cd', ':cd %:p:h<CR>:pwd<CR>')
 --  quickfix window with <leader>a
 set('nnoremap', '<C-PageDown>', ':cnext<CR>')
 set('nnoremap', '<C-PageUp>', ':cprevious<CR>')
--- TODO toggle lsp?
--- set('nnoremap', '<leader>a', ':<C-u>call scraps#ToggleQuickfixErrorWindow()<CR>')
 
 if vim.g.gonvim_running == 1 then
     -- toggle fullscreen

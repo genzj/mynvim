@@ -5,8 +5,9 @@ return {
         diagnostics = {
             Error = " ",
             Warn = " ",
-            Hint = " ",
+            Hint = " ",
             Info = " ",
+            Other = "",
         },
         git = {
             added = " ",

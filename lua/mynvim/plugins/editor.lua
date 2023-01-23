@@ -64,4 +64,43 @@ return {
             leap.add_default_mappings(true)
         end,
     },
+
+    -- references
+    {
+        "RRethy/vim-illuminate",
+        event = "BufReadPost",
+        opts = {
+            delay = 300,
+            modes_allowlist = { "n" },
+            large_file_cutoff = 1000,
+        },
+        config = function(_, opts)
+            require("illuminate").configure(opts)
+        end,
+        -- stylua: ignore
+        keys = {
+            -- { "]]", function() require("illuminate").goto_next_reference(false) end, desc = "Next Reference", },
+            -- { "[[", function() require("illuminate").goto_prev_reference(false) end, desc = "Prev Reference" },
+        },
+    },
+
+    -- better diagnostics list and others
+    {
+        "folke/trouble.nvim",
+        cmd = { "TroubleToggle", "Trouble" },
+        opts = {
+            use_diagnostic_signs = true,
+            signs = {
+                error = icons.diagnostics.Error,
+                warning = icons.diagnostics.Warn,
+                hint = icons.diagnostics.Hint,
+                information = icons.diagnostics.Info,
+                other = icons.diagnostics.Other,
+            },
+        },
+        keys = {
+            { "<leader>a", "<cmd>TroubleToggle document_diagnostics<cr>", desc = "Document Diagnostics (Trouble)" },
+            { "<leader>A", "<cmd>TroubleToggle workspace_diagnostics<cr>", desc = "Workspace Diagnostics (Trouble)" },
+        },
+    },
 }
