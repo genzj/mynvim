@@ -58,6 +58,7 @@ set('vmap', '<leader>(', 'S(')
 set('vmap', '<leader>{', 'S{')
 set('vmap', '<leader><', 'S<')
 
+-- TODO works fine in term but doesn't work in Gonvim
 -- Use shift+Space to enter/exit insert mode
 set('nnoremap', '<S-space>', 'i')
 set('inoremap', '<S-space>', '<Esc>')
@@ -74,8 +75,14 @@ if vim.g.gonvim_running == 1 then
     -- toggle fullscreen
     set('nnoremap', '<silent><C-F11>', '<cmd>GonvimFullscreen "toggle"<cr>')
 
-    set('nnoremap', '<D-v>', 'a<C-r>+<Esc>')
-    set('inoremap', '<D-v>', '<C-r>+')
-    set('cnoremap', '<D-v>', '<C-r>+')
+    if vim.fn.has('mac') == 1 then
+        set('nnoremap', '<D-v>', 'o<Esc>"+p')
+        set('inoremap', '<D-v>', '<C-r>+')
+        set('cnoremap', '<D-v>', '<C-r>+')
+        set('snoremap', '<D-c>', '"+y')
+        set('vnoremap', '<D-c>', '"+y')
+        set('snoremap', '<D-x>', '"+d')
+        set('vnoremap', '<D-x>', '"+d')
+    end
 end
 
