@@ -18,5 +18,7 @@
   "tokyonight.nvim": { "branch": "main", "commit": "4071f7fa984859c5de7a1fd27069b99c3a0d802a" },
   "trouble.nvim": { "branch": "main", "commit": "b2a0afac2c319a481f0f0318963a74d672ba5766" },
   "vim-illuminate": { "branch": "master", "commit": "4e1d43cdc39e35f495c7b39a78a349b4d5badad0" },
+  "vim-ingo-library": { "branch": "master", "commit": "097b1c729ee0f334a40eddfbd84d77161287f2f1" },
+  "vim-mark": { "branch": "master", "commit": "89274036663c3322c669ff499a128583018604d3" },
   "vim-startuptime": { "branch": "master", "commit": "cb4c112b9e0f224236ee4eab6bf5153406b3f88b" }
 }

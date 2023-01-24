@@ -103,4 +103,23 @@ return {
             { "<leader>A", "<cmd>TroubleToggle workspace_diagnostics<cr>", desc = "Workspace Diagnostics (Trouble)" },
         },
     },
+
+    -- highlight several words in different colors simultaneously
+    {
+        "inkarkat/vim-mark",
+        lazy = false,
+        cmd = { "Mark", "MarkClear" },
+        dependencies = {
+            { "inkarkat/vim-ingo-library" },
+        },
+        keys = {
+            "<Leader>m",
+            "<Leader>n",
+            "<Leader>*",
+            "<Leader>#",
+            "<Leader>/",
+            "<Leader>?",
+        },
+
+    },
 }
