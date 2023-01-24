@@ -37,11 +37,15 @@ set.timeoutlen = 5000 -- Longer timeout for leader cmds
 set.grepformat = "%f:%l:%c:%m"
 set.grepprg = "rg --vimgrep"
 
-set.guifont = {
-    "JetBrainsMono_Nerd_Font:h13.000000",
-    "Inconsolata-dz_for_Powerline:h12",
-    "Monospace 12"
-}
+if vim.fn.has('win32') == 1 then
+    set.guifont = "JetBrainsMonoNL NFM:h12:b"
+else
+    set.guifont = {
+        "JetBrainsMono_Nerd_Font:h13.000000",
+        "Inconsolata-dz_for_Powerline:h12",
+        "Monospace 12"
+    }
+end
 
 if vim.g.gonvim_running then
     set.lines = 60

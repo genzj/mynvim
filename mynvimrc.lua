@@ -24,6 +24,14 @@ require("lazy").setup({
   defaults = {
       lazy = true,
   },
+  performance = {
+      rtp = {
+		-- do not reset rtp on win32 as I want to clone
+		-- the configs to a different path instead of
+		-- the default AppData config dir
+        reset = (vim.fn.has('win32') == 0),
+	  }
+  },
   install = { colorscheme = { "tokyonight", "habamax" } },
   checker = { enabled = true }, -- automatically check for plugin updates
 })
