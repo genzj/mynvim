@@ -49,15 +49,6 @@ set('inoremap', '<expr>k', 'pumvisible()?"<Up>":"k"')
 -- scroll one page
 set('nnoremap', '<space>', 'Lzt')
 
--- TODO surround
--- Add quotes, parentheses or brcakets around chosen text"
-set('vmap', '<leader>"', 'S"')
-set('vmap', '<leader>\'', 'S\'')
-set('vmap', '<leader>`', 'S`')
-set('vmap', '<leader>(', 'S(')
-set('vmap', '<leader>{', 'S{')
-set('vmap', '<leader><', 'S<')
-
 -- TODO works fine in term but doesn't work in Gonvim
 -- Use shift+Space to enter/exit insert mode
 set('nnoremap', '<S-space>', 'i')

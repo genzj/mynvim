@@ -41,4 +41,31 @@ return {
             require("mini.surround").setup(opts)
         end,
     },
+
+    -- comments
+    { "JoosepAlviste/nvim-ts-context-commentstring", lazy = true },
+    {
+        "echasnovski/mini.comment",
+        event = "VeryLazy",
+        keys = {
+            -- default mappings
+            { "gc" }, -- Toggle comment (like `gcip` - comment inner paragraph) for both normal and visual modes
+            { "gcc" }, -- Toggle comment on current line
+
+            { "<D-/>", "gcc", desc = "Toggle comment", remap = true, mode = {"n"} }, -- VSCode style shortcut
+            { "<D-/>", "gc", desc = "Toggle comment", remap = true, mode = {"v"} }, -- VSCode style shortcut
+            { "<leader>c<space>", "gcc", desc = "Toggle comment", remap = true, mode = {"n"} }, -- VIM style shortcut
+            { "<leader>c<space>", "gc", desc = "Toggle comment", remap = true, mode = {"v"} }, -- VIM style shortcut
+        },
+        opts = {
+            hooks = {
+                pre = function()
+                    require("ts_context_commentstring.internal").update_commentstring({})
+                end,
+            },
+        },
+        config = function(_, opts)
+            require("mini.comment").setup(opts)
+        end,
+    },
 }
