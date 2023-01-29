@@ -47,8 +47,3 @@ else
     }
 end
 
-if vim.g.gonvim_running then
-    set.lines = 60
-    set.columns = 162
-end
-
