@@ -1,4 +1,4 @@
-function gonvim_settings()
+local function gonvim_settings()
     if not vim.g.gonvim_running then
         return
     end
@@ -9,3 +9,6 @@ function gonvim_settings()
         vim.cmd.cd('~')
     end
 end
+
+gonvim_settings()
+
