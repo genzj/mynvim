@@ -23,9 +23,6 @@ set('nnoremap', ',ya', '<Cmd>%y+<CR>')
 -- hide highlight search
 set('nnoremap', '<silent><F12>', '<Cmd>nohls<CR>')
 
--- Open Python 3 console
-set('nnoremap', '<leader>zp', '<Cmd>!python3<CR>')
-
 -- toggle show list
 set('noremap', '<silent><leader>ol', '<Cmd>set list!<CR>')
 
@@ -34,17 +31,6 @@ set('noremap', '<silent><leader>or', '<Cmd>set readonly!<CR>')
 
 -- toggle indent guides
 set('nmap', '<silent><Leader>og', '<Cmd>IndentBlanklineToggle!<CR>')
-
--- TODO omni completion
--- Super-Tab keymap
--- Enter the chosen one when the menu is visible
-set('inoremap', '<expr><CR>', 'pumvisible()?"<C-Y>":"<CR>"')
-set('inoremap', '<expr><space>', 'pumvisible()?"<C-Y>":"<space>"')
--- Scoll and move the highlight
-set('inoremap', '<expr><C-j>', 'pumvisible()?"<PageDown>":"<C-j>"')
-set('inoremap', '<expr><C-k>', 'pumvisible()?"<PageUp>":"<C-k>"')
-set('inoremap', '<expr>j', 'pumvisible()?"<Down>":"j"')
-set('inoremap', '<expr>k', 'pumvisible()?"<Up>":"k"')
 
 -- scroll one page
 set('nnoremap', '<space>', 'Lzt')
@@ -56,11 +42,6 @@ set('inoremap', '<S-space>', '<Esc>')
 
 -- Change cwd to the file path
 set('nnoremap', '<leader>cd', ':cd %:p:h<CR>:pwd<CR>')
-
---  Jump to next error with Ctrl-pd and previous error with Ctrl-pu. Close the
---  quickfix window with <leader>a
-set('nnoremap', '<C-PageDown>', ':cnext<CR>')
-set('nnoremap', '<C-PageUp>', ':cprevious<CR>')
 
 if vim.g.gonvim_running == 1 then
     -- toggle fullscreen
