@@ -3,7 +3,7 @@ local M = {}
 local function remove_token(s, token)
     local removed = s:gsub(token, '')
 
-    return removed, removed ~= s 
+    return removed, removed ~= s
 end
 
 local function extract_special_args(lhs, opts)
@@ -37,7 +37,7 @@ function M.set(cmd, lhs, rhs, opts)
 
     cmd, opts = extract_remap(cmd, opts)
     lhs, opts = extract_special_args(lhs, opts)
-    mode = extract_mode(cmd)
+    local mode = extract_mode(cmd)
 
     -- print(vim.inspect({
     --     mode = mode,
