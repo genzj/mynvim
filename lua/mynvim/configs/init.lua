@@ -1,6 +1,7 @@
 local M = {}
 
 M.icons = require("mynvim.configs.icons").icons
+M.install = require("mynvim.configs.install")
 
 function M.setup()
     -- inspired by the gh:LazyVim/LazyVim

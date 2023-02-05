@@ -19,7 +19,7 @@ return {
         -- keys = { { "<leader>cm", "<cmd>Mason<cr>", desc = "Mason" } },
 
         opts = {
-            ensure_installed = require("mynvim.plugins.lsp.install").mason,
+            ensure_installed = require("mynvim.configs").install.mason,
         },
         ---@param opts MasonSettings | {ensure_installed: string[]}
         config = function(_, opts)
@@ -139,9 +139,9 @@ return {
             },
 
             -- LSP Server Settings
-            servers = require("mynvim.plugins.lsp.install").servers,
+            servers = require("mynvim.configs").install.servers,
 
-            setup = require("mynvim.plugins.lsp.install").setup,
+            setup = require("mynvim.configs").install.setup,
         },
         ---@param opts PluginLspOpts
         config = function(_, opts)

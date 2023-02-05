@@ -1,4 +1,23 @@
-return {
+local defaults = {
+    treesitter = {
+        "bash",
+        "help",
+        "html",
+        "javascript",
+        "jq",
+        "json",
+        "lua",
+        "markdown",
+        "markdown_inline",
+        "python",
+        "query",
+        "regex",
+        "tsx",
+        "typescript",
+        "vim",
+        "yaml",
+    },
+
     mason = {
         -- Lua
         "stylua",
@@ -38,3 +57,5 @@ return {
         -- ["*"] = function(server, opts) end,
     },
 }
+
+return vim.tbl_deep_extend("force", defaults, vim.g.mynvim_install or {})

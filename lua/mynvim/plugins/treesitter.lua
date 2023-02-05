@@ -12,24 +12,7 @@ return {
         opts = {
             indent = { enable = true },
             context_commentstring = { enable = true, enable_autocmd = false },
-            ensure_installed = {
-                "bash",
-                "help",
-                "html",
-                "javascript",
-                "jq",
-                "json",
-                "lua",
-                "markdown",
-                "markdown_inline",
-                "python",
-                "query",
-                "regex",
-                "tsx",
-                "typescript",
-                "vim",
-                "yaml",
-            },
+            ensure_installed = require("mynvim.configs").install.treesitter,
             incremental_selection = {
                 enable = true,
                 keymaps = {
@@ -40,8 +23,9 @@ return {
                 },
             },
             highlight = {
+                enable = true,
                 -- disable slow treesitter highlight for large files
-                disable = function(lang, buf)
+                disable = function(_, buf)
                     local max_filesize = 100 * 1024 -- 100 KB
                     local ok, stats = pcall(vim.loop.fs_stat, vim.api.nvim_buf_get_name(buf))
                     if ok and stats and stats.size > max_filesize then
