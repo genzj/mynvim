@@ -1,1 +1,5 @@
-pynvim
+pynvim == 0.4.3
+
+# markdown preview
+#   https://github.com/joeyespo/grip
+grip == 4.6.1
