@@ -1,4 +1,4 @@
-local icons = require("mynvim/configs/icons").icons
+local icons = require("mynvim.configs").icons
 
 return {
     -- file explorer

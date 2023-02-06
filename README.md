@@ -49,7 +49,7 @@ vim.g.mynvim_install = {
         "rust-analyzer",
     },
 
-    server = {
+    servers = {
         ["rust-analyzer"] = {},
     }
 }
