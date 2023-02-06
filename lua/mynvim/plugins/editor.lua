@@ -107,7 +107,6 @@ return {
     -- highlight several words in different colors simultaneously
     {
         "inkarkat/vim-mark",
-        lazy = false,
         cmd = { "Mark", "MarkClear" },
         dependencies = {
             { "inkarkat/vim-ingo-library" },
