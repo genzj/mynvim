@@ -17,8 +17,11 @@ set('nnoremap', '<silent><down>', '<Cmd>wincmd j<CR>')
 set('nnoremap', '<silent><right>', '<Cmd>wincmd l<CR>')
 set('nnoremap', '<silent><left>', '<Cmd>wincmd h<CR>')
 
+-- Copy clipboard
+set('nnoremap', '<leader>y', '"+y')
+set('vnoremap', '<leader>yy', '"+y')
 -- Copy all to clipboard
-set('nnoremap', ',ya', '<Cmd>%y+<CR>')
+set('nnoremap', '<leader>yA', '<Cmd>%yank+<CR>')
 
 -- hide highlight search
 set('nnoremap', '<silent><F12>', '<Cmd>nohls<CR>')
