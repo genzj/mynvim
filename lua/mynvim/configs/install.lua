@@ -18,6 +18,8 @@ local defaults = {
         "yaml",
     },
 
+    -- It's recommended to install LSP servers with the `servers` table below.
+    -- Utilities listed here are mainly for null-ls sources
     mason = {
         -- Lua
         "stylua",
