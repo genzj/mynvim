@@ -42,17 +42,38 @@ return {
         dependencies = { "mason.nvim" },
         opts = function()
             local nls = require("null-ls")
+
+            local get_nls_obj = function (keys)
+                local obj = nls
+                for i = 2, #keys do
+                    obj = obj[keys[i]]
+                end
+
+                return obj
+            end
+
+            local parse_dots = function (str)
+                local keys = {}
+                for key in str:gmatch "[^.]+" do
+                    table.insert(keys, key)
+                end
+                return keys
+            end
+
+            local nls_installs = require("mynvim.configs").install.nls
+            local source_config = {}
+            for i = 1, #nls_installs  do
+                local item = nls_installs[i]
+                if string.sub(item, 1, 4) == "nls." then
+                    item = get_nls_obj(parse_dots(item))
+                end
+                table.insert(source_config, item)
+            end
+
             return {
                 -- check the full list:
                 --   https://github.com/jose-elias-alvarez/null-ls.nvim/blob/main/doc/BUILTINS.md
-                sources = {
-                    -- nls.builtins.formatting.prettierd,
-                    nls.builtins.formatting.stylua,
-
-                    -- shell
-                    nls.builtins.code_actions.shellcheck,
-                    nls.builtins.formatting.shfmt,
-                },
+                sources = source_config,
             }
         end,
     },

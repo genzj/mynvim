@@ -29,6 +29,15 @@ local defaults = {
         "shfmt",
     },
 
+    nls = {
+        -- nls.builtins.formatting.prettierd,
+        "nls.builtins.formatting.stylua",
+
+        -- shell
+        "nls.builtins.code_actions.shellcheck",
+        "nls.builtins.formatting.shfmt",
+    },
+
     servers = {
         jsonls = {},
         bashls = {},

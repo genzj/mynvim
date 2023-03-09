@@ -45,16 +45,30 @@ vim.g.mynvim_install = {
         "rust",
     },
 
+    -- Install non-lsp extentions, such as null-ls dependencies.
+    -- For lsp-config supported servers, check the `servers` key below.
     mason = {
-        "rust-analyzer",
+        "rustfmt",
     },
 
+    -- "nls." prefixed items will be loaded from the null-ls package
+    -- https://github.com/jose-elias-alvarez/null-ls.nvim/blob/main/doc/BUILTINS.md
+    nls = {
+        "nls.builtins.formatting.rustfmt",
+    },
+
+    -- LSP server configs. Configured servers will be installed by mason-lspconfig
+    -- https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md
+    -- https://github.com/williamboman/mason-lspconfig.nvim#available-lsp-servers
     servers = {
-        ["rust-analyzer"] = {},
+        ["rust_analyzer"] = {},
     }
 }
 EOF
 luafile ~/.config/nvim/mynvimrc.lua
+
+" Or
+" exe 'luafile '.stdpath('config').'/mynvimrc.lua'
 ```
 
 Ref:
