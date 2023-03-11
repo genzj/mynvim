@@ -19,7 +19,7 @@ return {
 
             return {
                 options = {
-                    theme = "powerline_dark",
+                    theme = "auto",
                     globalstatus = true,
                     disabled_filetypes = { statusline = { "dashboard", "lazy", "alpha" } },
                 },

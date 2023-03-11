@@ -32,7 +32,7 @@ require("lazy").setup({
             reset = (vim.fn.has('win32') == 0),
         }
     },
-    install = { colorscheme = { "tokyonight", "habamax" } },
+    install = { colorscheme = { "bluloco" } },
     checker = {
         -- automatically check for plugin updates
         enabled = true,
