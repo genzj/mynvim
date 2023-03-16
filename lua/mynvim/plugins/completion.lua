@@ -114,6 +114,18 @@ return {
         end,
     },
 
+    -- split and join
+    {
+        "echasnovski/mini.splitjoin",
+        keys = {
+            "gS",
+        },
+        -- must require the lib manually, or 'mini' lib will be required
+        config = function(_, opts)
+            require("mini.splitjoin").setup(opts)
+        end,
+    },
+
     -- surround
     {
         "echasnovski/mini.surround",
