@@ -4,6 +4,9 @@ return {
         version = false, -- last release is way too old and doesn't work on Windows
         build = ":TSUpdate",
         event = "BufReadPost",
+        dependencies = {
+            "HiPhish/nvim-ts-rainbow2",
+        },
         keys = {
             { "<c-space>", desc = "Increment selection" },
             { "<bs>", desc = "Schrink selection", mode = "x" },
@@ -33,10 +36,20 @@ return {
                     end
                     return false
                 end,
-            }
+            },
+            rainbow = {
+                enable = true,
+                -- list of languages you want to disable the plugin for
+                disable = {  },
+                -- Which query to use for finding delimiters
+                query = "rainbow-parens",
+                -- Highlight the entire buffer all at once
+                -- strategy = require("ts-rainbow").strategy.global,
+            },
         },
         ---@param opts TSConfig
         config = function(plugin, opts)
+            opts.rainbow.strategy = require("ts-rainbow").strategy.global
             require("nvim-treesitter.configs").setup(opts)
             vim.opt.foldmethod = "expr"
             vim.opt.foldexpr = "nvim_treesitter#foldexpr()"
