@@ -47,7 +47,7 @@ local defaults = {
                 Lua = {
                     diagnostics = {
                         -- Get the language server to recognize the `vim` global
-                        globals = {'vim'},
+                        globals = { 'vim' },
                     },
                     workspace = {
                         -- Make the server aware of Neovim runtime files
@@ -76,4 +76,24 @@ local defaults = {
     },
 }
 
-return vim.tbl_deep_extend("force", defaults, vim.g.mynvim_install or {})
+local function concatArray(a, b)
+    a = a or {}
+    b = b or {}
+    local result = {}
+    for i = 1, #a do
+        result[#result + 1] = a[i]
+    end
+    for i = 1, #b do
+        result[#result + 1] = b[i]
+    end
+    return result
+end
+
+local mynvim_install = vim.g.mynvim_install or {}
+return {
+    treesitter = concatArray(defaults.treesitter, mynvim_install.treesitter or {}),
+    mason = concatArray(defaults.mason, mynvim_install.mason or {}),
+    nls = concatArray(defaults.nls, mynvim_install.nls or {}),
+    servers = vim.tbl_deep_extend("force", defaults.servers, mynvim_install.servers or {}),
+    setup = vim.tbl_deep_extend("force", defaults.setup, mynvim_install.setup or {}),
+}
