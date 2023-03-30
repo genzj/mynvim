@@ -96,4 +96,5 @@ return {
     nls = concatArray(defaults.nls, mynvim_install.nls or {}),
     servers = vim.tbl_deep_extend("force", defaults.servers, mynvim_install.servers or {}),
     setup = vim.tbl_deep_extend("force", defaults.setup, mynvim_install.setup or {}),
+    plugins = mynvim_install.plugins or {},
 }
