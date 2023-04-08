@@ -34,12 +34,19 @@ local function extract_mode(cmd)
 end
 
 function M.group(prefix, name)
-    local wk = require("which-key")
-    wk.register({
+    M.try_register({
         [prefix] = {
             name=name
         },
     })
+end
+
+function M.try_register(...)
+    local ok, wk = pcall(require, "which-key")
+    if ok then
+        return wk.register(...)
+    end
+    return nil
 end
 
 function M.set(cmd, lhs, rhs, desc, opts)

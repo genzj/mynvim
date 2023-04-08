@@ -30,7 +30,7 @@ function M.get(buffer)
     g = { name = "Goto" },
     ["<leader>c"] = { name = "Code actions" },
   }
-  require('which-key').register(M._groups, { buffer = buffer })
+  require('mynvim.utils').keymap.try_register(M._groups, { buffer = buffer })
   return M._keys
 end
 

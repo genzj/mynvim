@@ -155,7 +155,7 @@ return {
             }
         end,
         config = function(_, opts)
-            require('which-key').register(
+            require('mynvim.utils').keymap.try_register(
                 {
                     ['ab'] = [[Alias for ), ], } (mini.ai)]],
                     ['ib'] = [[Alias for ), ], } (mini.ai)]],

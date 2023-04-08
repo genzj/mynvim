@@ -3,7 +3,7 @@ return {
     {
         "rcarriga/nvim-notify",
         keys = function ()
-            require("which-key").register({
+            require('mynvim.utils').keymap.try_register({
                 ["<leader>u"] = {name = "Notifications"},
             })
             return {
@@ -45,7 +45,7 @@ return {
         },
         -- stylua: ignore
         keys = function ()
-            require("which-key").register({
+            require('mynvim.utils').keymap.try_register({
                 ["<leader>u"] = {name = "Notifications"},
             })
             return {

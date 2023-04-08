@@ -141,7 +141,7 @@ return {
                 { opts.mappings.replace, desc = "Replace surrounding" },
                 { opts.mappings.update_n_lines, desc = "Update `MiniSurround.config.n_lines`" },
             }
-            require('which-key').register(opts.groups)
+            require('mynvim.utils').keymap.try_register(opts.groups)
             return vim.list_extend(mappings, keys)
         end,
         opts = {
