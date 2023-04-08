@@ -1,19 +1,17 @@
 local M = {}
 
 ---@return (LazyKeys|{has?:string})[]
-function M.get()
+function M.get(buffer)
   ---@class PluginLspKeys
   -- stylua: ignore
   M._keys = M._keys or {
-    -- { "<leader>cd", vim.diagnostic.open_float, desc = "Line Diagnostics" },
-    { "<leader>cl", "<cmd>LspInfo<cr>", desc = "Lsp Info" },
     { "gd", vim.lsp.buf.definition, desc = "Goto Definition" },
     { "gr", vim.lsp.buf.references, desc = "References" },
     { "gD", vim.lsp.buf.declaration, desc = "Goto Declaration" },
     { "gI", vim.lsp.buf.implementation, desc = "Goto Implementation" },
     { "gt", vim.lsp.buf.type_definition, desc = "Goto Type Definition" },
-    { "K", vim.lsp.buf.hover, desc = "Hover" },
     { "gK", vim.lsp.buf.signature_help, desc = "Signature Help", has = "signatureHelp" },
+    { "K", vim.lsp.buf.hover, desc = "Hover" },
     { "<c-k>", vim.lsp.buf.signature_help, mode = "i", desc = "Signature Help", has = "signatureHelp" },
     { "]d", M.diagnostic_goto(true), desc = "Next Diagnostic" },
     { "[d", M.diagnostic_goto(false), desc = "Prev Diagnostic" },
@@ -24,8 +22,15 @@ function M.get()
     { "<leader>ca", vim.lsp.buf.code_action, desc = "Code Action", mode = { "n", "v" }, has = "codeAction" },
     { "<leader>cf", M.format, desc = "Format Document", has = "documentFormatting" },
     { "<leader>cf", M.format, desc = "Format Range", mode = "v", has = "documentRangeFormatting" },
+    { "<leader>cl", "<cmd>LspInfo<cr>", desc = "Lsp Info" },
+    { "<leader>ci", vim.diagnostic.open_float, desc = "Line Diagnostics" },
     { "<leader>cr", M.rename, expr = true, desc = "Rename", has = "rename" },
   }
+  M._groups = M._groups or {
+    g = { name = "Goto" },
+    ["<leader>c"] = { name = "Code actions" },
+  }
+  require('which-key').register(M._groups, { buffer = buffer })
   return M._keys
 end
 
@@ -33,7 +38,7 @@ function M.on_attach(client, buffer)
     local Keys = require("lazy.core.handler.keys")
     local keymaps = {} ---@type table<string,LazyKeys|{has?:string}>
 
-    for _, value in ipairs(M.get()) do
+    for _, value in ipairs(M.get(buffer)) do
         local keys = Keys.parse(value)
         if keys[2] == vim.NIL or keys[2] == false then
             keymaps[keys.id] = nil

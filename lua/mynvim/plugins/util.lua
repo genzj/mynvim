@@ -19,6 +19,7 @@ return {
       require("which-key").setup({
         operators = {
             ["<leader>y"] = "Copy to system clipboard",
+            ["<leader>sa"] = "Add surrounding",
         }
       })
     end,

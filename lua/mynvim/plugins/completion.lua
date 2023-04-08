@@ -118,7 +118,7 @@ return {
     {
         "echasnovski/mini.splitjoin",
         keys = {
-            "gS",
+            { "gS", desc="Split/join" },
         },
         -- must require the lib manually, or 'mini' lib will be required
         config = function(_, opts)
@@ -141,9 +141,13 @@ return {
                 { opts.mappings.replace, desc = "Replace surrounding" },
                 { opts.mappings.update_n_lines, desc = "Update `MiniSurround.config.n_lines`" },
             }
+            require('which-key').register(opts.groups)
             return vim.list_extend(mappings, keys)
         end,
         opts = {
+            groups = {
+                ["<leader>s"] = { name = "Surrounding" },
+            },
             mappings = {
                 add = "<leader>sa", -- Add surrounding in Normal and Visual modes
                 delete = "<leader>sd", -- Delete surrounding

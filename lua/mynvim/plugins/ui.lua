@@ -2,15 +2,20 @@ return {
     -- better vim.notify
     {
         "rcarriga/nvim-notify",
-        keys = {
-            {
-                "<leader>un",
-                function()
-                    require("notify").dismiss({ silent = true, pending = true })
-                end,
-                desc = "Delete all Notifications",
-            },
-        },
+        keys = function ()
+            require("which-key").register({
+                ["<leader>u"] = {name = "Notifications"},
+            })
+            return {
+                {
+                    "<leader>un",
+                    function()
+                        require("notify").dismiss({ silent = true, pending = true })
+                    end,
+                    desc = "Delete all Notifications",
+                },
+            }
+        end,
         opts = {
             timeout = 3000,
             max_height = function()
@@ -39,14 +44,19 @@ return {
             },
         },
         -- stylua: ignore
-        keys = {
-            { "<S-Enter>", function() require("noice").redirect(vim.fn.getcmdline()) end, mode = "c", desc = "Redirect Cmdline" },
-            -- { "<leader>snl", function() require("noice").cmd("last") end, desc = "Noice Last Message" },
-            -- { "<leader>snh", function() require("noice").cmd("history") end, desc = "Noice History" },
-            -- { "<leader>sna", function() require("noice").cmd("all") end, desc = "Noice All" },
-            { "<c-f>", function() if not require("noice.lsp").scroll(4) then return "<c-f>" end end, silent = true, expr = true, desc = "Scroll forward" },
-            { "<c-b>", function() if not require("noice.lsp").scroll(-4) then return "<c-b>" end end, silent = true, expr = true, desc = "Scroll backward"},
-        },
+        keys = function ()
+            require("which-key").register({
+                ["<leader>u"] = {name = "Notifications"},
+            })
+            return {
+                { "<S-Enter>", function() require("noice").redirect(vim.fn.getcmdline()) end, mode = "c", desc = "Redirect Cmdline" },
+                { "<leader>ul", function() require("noice").cmd("last") end, desc = "Noice Last Message" },
+                { "<leader>uh", function() require("noice").cmd("history") end, desc = "Noice History" },
+                { "<leader>ua", function() require("noice").cmd("all") end, desc = "Noice All" },
+                { "<c-f>", function() if not require("noice.lsp").scroll(4) then return "<c-f>" end end, silent = true, expr = true, desc = "Scroll forward" },
+                { "<c-b>", function() if not require("noice.lsp").scroll(-4) then return "<c-b>" end end, silent = true, expr = true, desc = "Scroll backward"},
+            }
+        end,
     },
     -- better vim.ui
     {

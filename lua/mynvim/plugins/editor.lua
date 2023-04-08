@@ -112,22 +112,24 @@ return {
             { "inkarkat/vim-ingo-library" },
         },
         keys = {
-            "<Leader>m",
-            "<Leader>n",
-            "<Leader>*",
-            "<Leader>#",
-            "<Leader>/",
-            "<Leader>?",
+            { "<Leader>m", desc="Toggle highlight", },
+            { "<Leader>n", desc="Disable highlight", },
+            { "<Leader>*", desc="Search highlight forward", },
+            { "<Leader>#", desc="Search highlight backward", },
+            { "<Leader>/", desc="Search all highlights forward", },
+            { "<Leader>?", desc="Search all highlights backward", },
         },
     },
 
     -- better text-objects
     {
         "echasnovski/mini.ai",
-        keys = {
-            { "a", mode = { "x", "o" } },
-            { "i", mode = { "x", "o" } },
-        },
+        event = "VeryLazy",
+        -- Lazy load on key mapping doesn't work with which-key
+        -- keys = {
+        --     { "a", mode = { "x", "o" } },
+        --     { "i", mode = { "x", "o" } },
+        -- },
         dependencies = {
             {
                 "nvim-treesitter/nvim-treesitter-textobjects",
@@ -153,6 +155,27 @@ return {
             }
         end,
         config = function(_, opts)
+            require('which-key').register(
+                {
+                    ['ab'] = [[Alias for ), ], } (mini.ai)]],
+                    ['ib'] = [[Alias for ), ], } (mini.ai)]],
+                    ['aq'] = [[Alias for ", ', ` (mini.ai)]],
+                    ['iq'] = [[Alias for ", ', ` (mini.ai)]],
+                    ['a?'] = [[User prompt (mini.ai)]],
+                    ['i?'] = [[User prompt (mini.ai)]],
+                    ['aa'] = [[Argument (mini.ai)]],
+                    ['ia'] = [[Argument (mini.ai)]],
+                    ['at'] = [[Tag (mini.ai)]],
+                    ['it'] = [[Tag (mini.ai)]],
+                    ['af'] = [[Function (mini.ai)]],
+                    ['if'] = [[Function (mini.ai)]],
+                    ['ao'] = [[Block/Condition/Loop (mini.ai)]],
+                    ['io'] = [[Block/Condition/Loop (mini.ai)]],
+                    ['ac'] = [[Class (mini.ai)]],
+                    ['ic'] = [[Class (mini.ai)]],
+                },
+                { mode = 'o', prefix = '' }
+            )
             local ai = require("mini.ai")
             ai.setup(opts)
         end,
