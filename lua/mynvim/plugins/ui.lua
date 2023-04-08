@@ -113,6 +113,9 @@ return {
     {
         "lukas-reineke/indent-blankline.nvim",
         event = "BufReadPre",
+        keys = {
+            { '<leader>og', '<Cmd>IndentBlanklineToggle!<CR>', desc="Toggle indent rule" },
+        },
         opts = {
             -- char = "▏",
             char = "│",

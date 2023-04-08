@@ -31,8 +31,6 @@ set.sidescrolloff = 8 -- Columns of context
 
 set.signcolumn = "yes" -- Always show the signcolumn, otherwise it would shift the text each time
 
-set.timeoutlen = 5000 -- Longer timeout for leader cmds
-
 -- using rg for grep
 set.grepformat = "%f:%l:%c:%m"
 set.grepprg = "rg --vimgrep"

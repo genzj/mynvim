@@ -1,42 +1,38 @@
 local set = require('mynvim.utils.keymap').set
+local group = require('mynvim.utils.keymap').group
 
 -- Don't use Ex mode, use Q for formatting
-set('map', 'Q', 'gq')
+set('map', 'Q', 'gq', 'Formatting')
 
 -- CTRL-U in insert mode deletes a lot.  Use CTRL-G u to first break undo,
 -- so that you can undo CTRL-U after inserting a line break.
 set('inoremap', '<C-U>', '<C-G>u<C-U>')
 
 -- Jump to next / previous window
-set('noremap', '<C-Tab>', '<C-W>w')
-set('noremap', '<C-S-Tab>', '<C-W>W')
+set('noremap', '<C-Tab>', '<C-W>w', 'Next window')
+set('noremap', '<C-S-Tab>', '<C-W>W', 'Previous window')
 
 -- move between windows
-set('nnoremap', '<silent><up>', '<Cmd>wincmd k<CR>')
-set('nnoremap', '<silent><down>', '<Cmd>wincmd j<CR>')
-set('nnoremap', '<silent><right>', '<Cmd>wincmd l<CR>')
-set('nnoremap', '<silent><left>', '<Cmd>wincmd h<CR>')
+set('nnoremap', '<silent><up>', '<Cmd>wincmd k<CR>', 'Window above')
+set('nnoremap', '<silent><down>', '<Cmd>wincmd j<CR>', 'Window below')
+set('nnoremap', '<silent><right>', '<Cmd>wincmd l<CR>', 'Window at right')
+set('nnoremap', '<silent><left>', '<Cmd>wincmd h<CR>', 'Window at left')
 
 -- Copy clipboard
-set('nnoremap', '<leader>y', '"+y')
-set('vnoremap', '<leader>yy', '"+y')
+-- FIXME not working after using which-key
+set('nnoremap', '<leader>y', '"+y', 'Copy to clipboard')
+set('vnoremap', '<leader>yy', '"+y', 'Copy to clipboard')
 -- Copy all to clipboard
-set('nnoremap', '<leader>yA', '<Cmd>%yank+<CR>')
+set('nnoremap', '<leader>yA', '<Cmd>%yank+<CR>', 'Copy all to clipboard')
 
 -- hide highlight search
-set('nnoremap', '<silent><F12>', '<Cmd>nohls<CR>')
+set('nnoremap', '<silent><F12>', '<Cmd>nohls<CR>', 'Hide highlight search')
 
--- toggle show list
-set('noremap', '<silent><leader>ol', '<Cmd>set list!<CR>')
+group('<leader>o', 'Toggle options')
+set('noremap', '<silent><leader>ol', '<Cmd>set list!<CR>', 'Toggle showing spaces')
+set('noremap', '<silent><leader>or', '<Cmd>set readonly!<CR>', 'Toggle readonly')
 
--- toggle read only
-set('noremap', '<silent><leader>or', '<Cmd>set readonly!<CR>')
-
--- toggle indent guides
-set('nmap', '<silent><Leader>og', '<Cmd>IndentBlanklineToggle!<CR>')
-
--- scroll one page
-set('nnoremap', '<space>', 'Lzt')
+set('nnoremap', '<space>', 'Lzt', 'Scroll one page')
 
 -- TODO works fine in term but doesn't work in Gonvim
 -- Use shift+Space to enter/exit insert mode
@@ -44,7 +40,7 @@ set('nnoremap', '<S-space>', 'i')
 set('inoremap', '<S-space>', '<Esc>')
 
 -- Change cwd to the file path
-set('nnoremap', '<leader>cd', ':cd %:p:h<CR>:pwd<CR>')
+set('nnoremap', '<leader>cd', ':cd %:p:h<CR>:pwd<CR>', 'Set CWD to folder of current buffer')
 
 if vim.g.gonvim_running == 1 then
     -- toggle fullscreen

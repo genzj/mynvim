@@ -15,6 +15,7 @@ end
 local function extract_remap(cmd, opts)
     local noremap_replaced = cmd:gsub('noremap', 'map')
     opts.remap = (noremap_replaced == cmd)
+    opts.noremap = not opts.remap
     return noremap_replaced, opts
 end
 
@@ -32,12 +33,25 @@ local function extract_mode(cmd)
     error('invalid keymap cmd ' .. cmd)
 end
 
-function M.set(cmd, lhs, rhs, opts)
+function M.group(prefix, name)
+    local wk = require("which-key")
+    wk.register({
+        [prefix] = {
+            name=name
+        },
+    })
+end
+
+function M.set(cmd, lhs, rhs, desc, opts)
     opts = vim.deepcopy(opts or {})
 
     cmd, opts = extract_remap(cmd, opts)
     lhs, opts = extract_special_args(lhs, opts)
     local mode = extract_mode(cmd)
+
+    if desc and not opts.desc then
+        opts.desc = desc
+    end
 
     -- print(vim.inspect({
     --     mode = mode,
@@ -45,7 +59,6 @@ function M.set(cmd, lhs, rhs, opts)
     --     rhs = rhs,
     --     opts = opts,
     -- }))
-
     return vim.keymap.set(mode, lhs, rhs, opts)
 end
 
