@@ -19,11 +19,11 @@ set('nnoremap', '<silent><right>', '<Cmd>wincmd l<CR>', 'Window at right')
 set('nnoremap', '<silent><left>', '<Cmd>wincmd h<CR>', 'Window at left')
 
 -- Copy clipboard
--- FIXME not working after using which-key
-set('nnoremap', '<leader>yy', '"+y', 'Copy to clipboard')
-set('vnoremap', '<leader>yy', '"+y', 'Copy to clipboard')
+group('<leader>y', 'Copy to system clipboard or terminal')
+set('nnoremap', '<leader>yy', '"+y', 'Copy to system clipboard')
+set('vnoremap', '<leader>yy', '"+y', 'Copy to system clipboard')
 -- Copy all to clipboard
-set('nnoremap', '<leader>yA', '<Cmd>%yank+<CR>', 'Copy all to clipboard')
+set('nnoremap', '<leader>yA', '<Cmd>%yank+<CR>', 'Copy all to system clipboard')
 
 -- hide highlight search
 set('nnoremap', '<silent><F12>', '<Cmd>nohls<CR>', 'Hide highlight search')

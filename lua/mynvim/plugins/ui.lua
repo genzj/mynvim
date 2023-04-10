@@ -81,8 +81,10 @@ return {
         "akinsho/nvim-bufferline.lua",
         event = "VeryLazy",
         init = function()
+            local group = require("mynvim.utils").keymap.group
             vim.keymap.set("n", "<s-h>", "<cmd>BufferLineCyclePrev<cr>", { desc = "Prev Buffer" })
             vim.keymap.set("n", "<s-l>", "<cmd>BufferLineCycleNext<cr>", { desc = "Next Buffer" })
+            group("<leader>b", "Bufferline pick")
             vim.keymap.set("n", "<leader>bb", "<cmd>BufferLinePick<cr>", { desc = "Pick Buffer" })
             vim.keymap.set("n", "<leader>bc", "<cmd>BufferLinePickClose<cr>", { desc = "Pick Buffer" })
             for num = 1, 9 do
@@ -92,7 +94,7 @@ return {
                     function ()
                         require('bufferline').go_to_buffer(num)
                     end,
-                    { desc = "Go to buffer" }
+                    { desc = "Go to buffer "..num }
                 )
             end
         end,
