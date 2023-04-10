@@ -18,7 +18,7 @@ return {
       vim.o.timeoutlen = 300
       require("which-key").setup({
         operators = {
-            ["<leader>y"] = "Copy to system clipboard",
+            ["<leader>yy"] = "Copy to system clipboard",
             ["<leader>sa"] = "Add surrounding",
         }
       })

@@ -20,7 +20,7 @@ set('nnoremap', '<silent><left>', '<Cmd>wincmd h<CR>', 'Window at left')
 
 -- Copy clipboard
 -- FIXME not working after using which-key
-set('nnoremap', '<leader>y', '"+y', 'Copy to clipboard')
+set('nnoremap', '<leader>yy', '"+y', 'Copy to clipboard')
 set('vnoremap', '<leader>yy', '"+y', 'Copy to clipboard')
 -- Copy all to clipboard
 set('nnoremap', '<leader>yA', '<Cmd>%yank+<CR>', 'Copy all to clipboard')
