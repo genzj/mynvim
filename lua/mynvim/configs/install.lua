@@ -1,7 +1,6 @@
 local defaults = {
     treesitter = {
         "bash",
-        "help",
         "html",
         "javascript",
         "jq",
@@ -15,6 +14,7 @@ local defaults = {
         "tsx",
         "typescript",
         "vim",
+        "vimdoc",
         "yaml",
     },
 
