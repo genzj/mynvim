@@ -1,15 +1,15 @@
 local M = {}
 
----@return (LazyKeys|{has?:string})[]
+---@return (LazyKeys|{has?:string})[], (LazyKeys|{has?:string})[]
 function M.get(buffer)
   ---@class PluginLspKeys
   -- stylua: ignore
+  if M._keys and M._groups then
+    return M._keys, M._groups
+  end
+
   M._keys = M._keys or {
-    { "gd", vim.lsp.buf.definition, desc = "Goto Definition" },
-    { "gr", vim.lsp.buf.references, desc = "References" },
     { "gD", vim.lsp.buf.declaration, desc = "Goto Declaration" },
-    { "gI", vim.lsp.buf.implementation, desc = "Goto Implementation" },
-    { "gt", vim.lsp.buf.type_definition, desc = "Goto Type Definition" },
     { "gK", vim.lsp.buf.signature_help, desc = "Signature Help", has = "signatureHelp" },
     { "K", vim.lsp.buf.hover, desc = "Hover" },
     { "<c-k>", vim.lsp.buf.signature_help, mode = "i", desc = "Signature Help", has = "signatureHelp" },
@@ -26,19 +26,36 @@ function M.get(buffer)
     { "<leader>ci", vim.diagnostic.open_float, desc = "Line Diagnostics" },
     { "<leader>cr", M.rename, expr = true, desc = "Rename", has = "rename" },
   }
+  local ok, telescope = pcall(require, 'telescope.builtin')
+  if ok then
+    vim.list_extend(M._keys, {
+      { "gd", telescope.lsp_definitions, desc = "Goto Definition" },
+      { "gr", telescope.lsp_references, desc = "References" },
+      { "gI", telescope.lsp_implementations, desc = "Goto Implementation" },
+      { "gt", telescope.lsp_type_definitions, desc = "Goto Type Definition" },
+    })
+  else
+    vim.list_extend(M._keys, {
+      { "gd", vim.lsp.buf.definition, desc = "Goto Definition" },
+      { "gr", vim.lsp.buf.references, desc = "References" },
+      { "gI", vim.lsp.buf.implementation, desc = "Goto Implementation" },
+      { "gt", vim.lsp.buf.type_definition, desc = "Goto Type Definition" },
+    })
+  end
   M._groups = M._groups or {
     g = { name = "Goto" },
     ["<leader>c"] = { name = "Code actions" },
   }
-  require('mynvim.utils').keymap.try_register(M._groups, { buffer = buffer })
-  return M._keys
+  return M._keys, M._groups
 end
 
 function M.on_attach(client, buffer)
     local Keys = require("lazy.core.handler.keys")
     local keymaps = {} ---@type table<string,LazyKeys|{has?:string}>
+    local all_keys, groups = M.get(buffer)
+    require('mynvim.utils').keymap.try_register(groups, { buffer = buffer })
 
-    for _, value in ipairs(M.get(buffer)) do
+    for _, value in ipairs(all_keys) do
         local keys = Keys.parse(value)
         if keys[2] == vim.NIL or keys[2] == false then
             keymaps[keys.id] = nil
