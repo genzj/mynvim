@@ -150,6 +150,7 @@ return {
                         i = { "@block.inner", "@conditional.inner", "@loop.inner" },
                     }, {}),
                     f = ai.gen_spec.treesitter({ a = "@function.outer", i = "@function.inner" }, {}),
+                    F = ai.gen_spec.function_call(),
                     c = ai.gen_spec.treesitter({ a = "@class.outer", i = "@class.inner" }, {}),
                 },
             }
@@ -169,6 +170,8 @@ return {
                     ['it'] = [[Tag (mini.ai)]],
                     ['af'] = [[Function (mini.ai)]],
                     ['if'] = [[Function (mini.ai)]],
+                    ['aF'] = [[Function call (mini.ai)]],
+                    ['iF'] = [[Function call (mini.ai)]],
                     ['ao'] = [[Block/Condition/Loop (mini.ai)]],
                     ['io'] = [[Block/Condition/Loop (mini.ai)]],
                     ['ac'] = [[Class (mini.ai)]],
