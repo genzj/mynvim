@@ -25,7 +25,7 @@ pip install -U -r requirements.txt
     ```
 1. Create the init file `~/.config/nvim/init.vim` with following content:
     ```vimscript
-    exe 'luafile '.stdpath('config').'/mynvimrc.lua'
+    lua require("mynvimrc.lua")
     ```
 
 ## Add language supports
@@ -65,10 +65,8 @@ vim.g.mynvim_install = {
     }
 }
 EOF
-luafile ~/.config/nvim/mynvimrc.lua
 
-" Or
-" exe 'luafile '.stdpath('config').'/mynvimrc.lua'
+lua require("mynvimrc.lua")
 ```
 
 Ref:
