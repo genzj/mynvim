@@ -27,6 +27,29 @@ pip install -U -r requirements.txt
     ```vimscript
     lua require("mynvimrc.lua")
     ```
+1. (Windows) Install LLVM by following [this
+   wiki](https://github.com/nvim-treesitter/nvim-treesitter/wiki/Windows-support#llvm-clang)
+   then setting it in the beginning of the `init.vim`, e.g.:
+   ```vimscript
+    lua <<EOF
+    vim.env.PATH = vim.env.PATH .. ";D:\\code\\LLVM\\bin"
+    vim.g.mynvim_install = {
+        treesitter = {
+            "rust",
+        },
+
+        servers = {
+            ["rust_analyzer"] = {},
+        }
+    }
+    EOF
+   ```
+1. (Optional) if this repo is cloned to a different folder, the path should be
+   added to `runtimepath`, e.g.:
+   ```vimscript
+    set runtimepath+=e:/proj/mynvim
+    lua require("mynvim")
+   ```
 
 ## Add language supports
 
