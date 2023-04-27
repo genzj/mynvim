@@ -47,6 +47,7 @@
   "vim-illuminate": { "branch": "master", "commit": "a2907275a6899c570d16e95b9db5fd921c167502" },
   "vim-ingo-library": { "branch": "master", "commit": "cb7c6728608e3c727e0620582f0b0becd8ce28f3" },
   "vim-mark": { "branch": "master", "commit": "0afec1d5bb2547a9357eecca54fbc5c6c6d178a7" },
+  "vim-repeat": { "branch": "master", "commit": "24afe922e6a05891756ecf331f39a1f6743d3d5a" },
   "vim-startuptime": { "branch": "master", "commit": "c9da356b59eb30dfca6cd573b63d0e81c0a24ff9" },
   "which-key.nvim": { "branch": "main", "commit": "4b73390eec680b4c061ea175eb32c0ff3412271d" }
 }

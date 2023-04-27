@@ -54,7 +54,11 @@ return {
     {
         "ggandor/leap.nvim",
         event = "VeryLazy",
-        dependencies = { { "ggandor/flit.nvim", opts = { labeled_modes = "nv" } } },
+        dependencies = {
+            -- vim-repeat is needed to make dot-repeat work with the flit.nvim
+            { "tpope/vim-repeat", event = "VeryLazy" },
+            { "ggandor/flit.nvim", opts = { labeled_modes = "nv" } },
+        },
         -- leap doesn't use `setup` but opts assignments
         config = function(_, opts)
             local leap = require("leap")
