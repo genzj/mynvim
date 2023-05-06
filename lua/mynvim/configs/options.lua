@@ -39,7 +39,7 @@ if vim.fn.has('win32') == 1 then
     set.guifont = "JetBrainsMonoNL NFM:h12:b"
 else
     set.guifont = {
-        "JetBrainsMono_Nerd_Font:h13.000000",
+        "JetBrainsMono_Nerd_Font:h12.000000",
         "Inconsolata-dz_for_Powerline:h12",
         "Monospace 12"
     }

@@ -16,15 +16,15 @@ return {
 
             dashboard.section.header.val = vim.split(logo, "\n")
             dashboard.section.buttons.val = {
-                dashboard.button("n", "	" .. "New file", ":enew<CR>"),
-                dashboard.button("p", "	" .. "Clipboard", ':enew<CR>"+p'),
-                dashboard.button("f", " 	" .. "Find file", ":Telescope find_files <CR>"),
-                dashboard.button("r", " 	" .. "Recent files", ":Telescope oldfiles <CR>"),
-                dashboard.button("g", " 	" .. "Grep", ":Telescope live_grep <CR>"),
-                dashboard.button("c", "	" .. "Config", ":call chdir(fnamemodify($MYVIMRC, ':p:h')) <BAR> :e $MYVIMRC <CR>"),
-                -- dashboard.button("s", "勒" .. "Restore Session", [[:lua require("persistence").load() <cr>]]),
-                dashboard.button("l", "鈴	" .. "Lazy", ":Lazy<CR>"),
-                dashboard.button("q", "	" .. "Quit", ":qa<CR>"),
+                dashboard.button("n", " " .. " New file", ":enew<CR>"),
+                dashboard.button("p", " " .. " Clipboard", ':enew<CR>"+p'),
+                dashboard.button("f", " " .. " Find file", ":Telescope find_files <CR>"),
+                dashboard.button("r", " " .. " Recent files", ":Telescope oldfiles <CR>"),
+                dashboard.button("g", " " .. " Grep", ":Telescope live_grep <CR>"),
+                dashboard.button("c", " " .. " Config", ":call chdir(fnamemodify($MYVIMRC, ':p:h')) <BAR> :e $MYVIMRC <CR>"),
+                -- dashboard.button("s", " " .. " Restore Session", [[:lua require("persistence").load() <cr>]]),
+                dashboard.button("l", "󰒲 " .. " Lazy", ":Lazy<CR>"),
+                dashboard.button("q", " " .. " Quit", ":qa<CR>"),
             }
             for _, button in ipairs(dashboard.section.buttons.val) do
                 button.opts.hl = "AlphaButtons"

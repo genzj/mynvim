@@ -94,13 +94,6 @@ return {
         cmd = { "TroubleToggle", "Trouble" },
         opts = {
             use_diagnostic_signs = true,
-            signs = {
-                error = icons.diagnostics.Error,
-                warning = icons.diagnostics.Warn,
-                hint = icons.diagnostics.Hint,
-                information = icons.diagnostics.Info,
-                other = icons.diagnostics.Other,
-            },
         },
         keys = {
             { "<leader>a", "<cmd>TroubleToggle document_diagnostics<cr>", desc = "Document Diagnostics (Trouble)" },
