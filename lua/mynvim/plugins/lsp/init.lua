@@ -183,4 +183,20 @@ return {
             }
         end,
     },
+
+    -- A tree like view for symbols in Neovim using the LSP
+    {
+        "simrat39/symbols-outline.nvim",
+        cmd = "SymbolsOutline",
+        keys = {
+            {"<F4>", function() vim.cmd("SymbolsOutline") end}
+        },
+        opts = {
+            symbols = {
+                -- override default icons which don't show correctly in my envs
+                Field = { icon = "", hl = "@field" },
+                Module = { icon = "", hl = "@namespace" },
+            },
+        },
+    },
 }
