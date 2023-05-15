@@ -51,7 +51,9 @@ pip install -U -r requirements.txt
     lua require("mynvim")
    ```
 
-## Add language supports
+## Customization
+
+### Add language supports
 
 To add per-host config for languages, edit the `~/.config/nvim/init.vim` to set
 `g:mynvim_install` to extend the
@@ -96,4 +98,19 @@ Ref:
 
 - [LSP servers](https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md)
 - [Treesitter parsers](https://github.com/nvim-treesitter/nvim-treesitter#supported-languages)
+
+### Override Options
+
+Some options are set in the `VeryLazy` user event callbacks so directly change
+them from `init.vim` may not work as expected. A more reliable solution is
+registering `autocmd`s for the same event and override options there, e.g.
+
+```vimscript
+augroup CustomOptionSetup
+    au!
+    au User VeryLazy let &guifont="Hack_Nerd_Font:h13.000000,".&guifont
+augroup END
+
+lua require("mynvim")
+```
 
