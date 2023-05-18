@@ -17,6 +17,11 @@ return {
                 end
             end
 
+            local function getWords()
+                local wordcount = vim.fn.wordcount();
+                return tostring(wordcount.visual_words or wordcount.words)
+            end
+
             return {
                 options = {
                     theme = "auto",
@@ -76,6 +81,7 @@ return {
                         { "o:encoding" },
                     },
                     lualine_y = {
+                        { getWords, icon="" },
                         { "progress", separator = " ", padding = { left = 1, right = 0 } },
                         { "location", padding = { left = 0, right = 1 } },
                     },
