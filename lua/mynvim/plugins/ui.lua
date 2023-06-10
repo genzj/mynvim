@@ -84,9 +84,9 @@ return {
             local group = require("mynvim.utils").keymap.group
             vim.keymap.set("n", "<s-h>", "<cmd>BufferLineCyclePrev<cr>", { desc = "Prev Buffer" })
             vim.keymap.set("n", "<s-l>", "<cmd>BufferLineCycleNext<cr>", { desc = "Next Buffer" })
-            group("<leader>b", "Bufferline pick")
-            vim.keymap.set("n", "<leader>bb", "<cmd>BufferLinePick<cr>", { desc = "Pick Buffer" })
-            vim.keymap.set("n", "<leader>bc", "<cmd>BufferLinePickClose<cr>", { desc = "Pick Buffer" })
+            group("<leader>b", "Bufferline & dropbar pick")
+            vim.keymap.set("n", "<leader>bb", "<cmd>BufferLinePick<cr>", { desc = "Pick and Switch to a Buffer" })
+            vim.keymap.set("n", "<leader>bc", "<cmd>BufferLinePickClose<cr>", { desc = "Pick and Close a Buffer" })
             for num = 1, 9 do
                 vim.keymap.set(
                     "n",
@@ -119,6 +119,18 @@ return {
                 },
             },
         },
+    },
+
+    {
+        "Bekaboo/dropbar.nvim",
+        event = {
+            "BufWinEnter",
+            "BufReadPost",
+            "BufWritePost",
+        },
+        keys = {
+            { "<leader>bd", function() require('dropbar.api').pick() end, desc = "Pick dropbar" }
+        }
     },
 
     -- indent guides for Neovim
