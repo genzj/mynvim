@@ -42,10 +42,7 @@ set('inoremap', '<S-space>', '<Esc>')
 -- Change cwd to the file path
 set('nnoremap', '<leader>cd', ':cd %:p:h<CR>:pwd<CR>', 'Set CWD to folder of current buffer')
 
-if vim.g.gonvim_running == 1 then
-    -- toggle fullscreen
-    set('nnoremap', '<silent><C-F11>', '<cmd>GonvimFullscreen "toggle"<cr>')
-
+if require("mynvim.utils").is_gui_running() then
     if vim.fn.has('mac') == 1 then
         set('nnoremap', '<D-v>', 'o<Esc>"+p')
         set('inoremap', '<D-v>', '<C-r>+')

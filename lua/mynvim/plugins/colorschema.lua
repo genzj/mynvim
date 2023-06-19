@@ -24,7 +24,7 @@ return {
     dependencies = { 'rktjmp/lush.nvim' },
     opts = {
       -- bluoco colors are enabled in gui terminals per default.
-      terminal = vim.fn.has("gui_running") == 1 or vim.g.gonvim_running == 1,
+      terminal = require("mynvim.utils").is_gui_running(),
     },
     config = function (_, opts)
       -- bluloco doesn't set this for us, while other (e.g. tokyonight) will

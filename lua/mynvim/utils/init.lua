@@ -76,4 +76,8 @@ function M.telescope(builtin, opts)
   end
 end
 
+function M.is_gui_running()
+    return vim.fn.has("gui_running") == 1 or vim.g.gonvim_running == 1 or vim.g.neovide
+end
+
 return M
