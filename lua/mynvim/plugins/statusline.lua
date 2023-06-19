@@ -63,8 +63,8 @@ return {
                             color = fg("Constant") ,
                         },
                         {
-                            require("noice").api.status.search.get,
-                            cond = require("noice").api.status.search.has,
+                            function() return require("noice").api.status.search.get() end,
+                            cond = function() return package.loaded["noice"] and require("noice").api.status.search.has() end,
                             color = fg("WarningMsg"),
                         },
                         -- Lazy update indicator
