@@ -59,6 +59,14 @@ return {
             }
         end,
     },
+    -- LSP progress indicator without relying on Noice
+    {
+        "j-hui/fidget.nvim",
+        branch = "legacy",
+        config = true,
+        event = "VeryLazy",
+
+    },
     -- better vim.ui
     {
         "stevearc/dressing.nvim",
