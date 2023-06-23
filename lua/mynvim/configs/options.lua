@@ -5,6 +5,7 @@ local set = vim.opt
 set.history = 50 --  keep 50 lines of command line history
 set.ruler = true --  show the cursor position all the time
 set.showcmd = true --  display incomplete commands
+set.cmdheight = 0 --  hide command-line by default (experimental)
 set.incsearch = true --  do incremental searching
 set.showmatch = true --  show match
 set.number = true --  show line No.
