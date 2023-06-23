@@ -37,8 +37,13 @@ return {
             end
 
             local function chiming()
-                local sec = os.date("*t").sec
-                return sec >= 55 or sec <= 5
+                if #vim.lsp.buf_get_clients() == 0 then
+                    -- always show clock if no LSP clients
+                    return true
+                else
+                    local sec = os.date("*t").sec
+                    return sec >= 55 or sec <= 5
+                end
             end
 
             return {
