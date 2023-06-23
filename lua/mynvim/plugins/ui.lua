@@ -30,7 +30,7 @@ return {
     {
         "folke/noice.nvim",
         event = "VeryLazy",
-        enabled = false,
+        enabled = require("mynvim.configs").switches.use_noice,
         opts = {
             lsp = {
                 override = {
@@ -65,7 +65,7 @@ return {
         branch = "legacy",
         config = true,
         event = "VeryLazy",
-
+        enabled = not require("mynvim.configs").switches.use_noice,
     },
     -- better vim.ui
     {

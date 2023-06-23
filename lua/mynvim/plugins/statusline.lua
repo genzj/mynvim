@@ -8,6 +8,7 @@ return {
         },
         opts = function(plugin)
             local icons = require("mynvim.configs").icons
+            local use_noice = require("mynvim.configs").switches.use_noice
 
             local function fg(name)
                 return function()
@@ -53,18 +54,18 @@ return {
                         -- stylua: ignore
                         {
                             function() return require("noice").api.status.command.get() end,
-                            cond = function() return package.loaded["noice"] and require("noice").api.status.command.has() end,
+                            cond = function() return use_noice and require("noice").api.status.command.has() end,
                             color = fg("Statement")
                         },
                         -- stylua: ignore
                         {
                             function() return require("noice").api.status.mode.get() end,
-                            cond = function() return package.loaded["noice"] and require("noice").api.status.mode.has() end,
+                            cond = function() return use_noice and require("noice").api.status.mode.has() end,
                             color = fg("Constant") ,
                         },
                         {
                             function() return require("noice").api.status.search.get() end,
-                            cond = function() return package.loaded["noice"] and require("noice").api.status.search.has() end,
+                            cond = function() return use_noice and require("noice").api.status.search.has() end,
                             color = fg("WarningMsg"),
                         },
                         -- Lazy update indicator
@@ -82,6 +83,17 @@ return {
                     },
                     lualine_y = {
                         { getWords, icon="" },
+                        { "searchcount",
+                            cond = function ()
+                                return not use_noice
+                            end,
+                            fmt = function (s)
+                                if string.len(s) > 0 then
+                                    return vim.fn.getreg("/")..s
+                                else
+                                    return s
+                            end
+                        end },
                         { "progress", separator = " ", padding = { left = 1, right = 0 } },
                         { "location", padding = { left = 0, right = 1 } },
                     },
