@@ -5,6 +5,7 @@ return {
         event = "VeryLazy",
         dependencies = {
             "nvim-tree/nvim-web-devicons",
+            "meuter/lualine-so-fancy.nvim",
         },
         opts = function(plugin)
             local icons = require("mynvim.configs").icons
@@ -23,6 +24,23 @@ return {
                 return tostring(wordcount.visual_words or wordcount.words)
             end
 
+            local function inRecording()
+                return string.len(vim.fn.reg_recording()) > 0
+            end
+
+            local function invert(func_or_val)
+                if type(func_or_val) == 'function' then
+                    return function() return not func_or_val() end
+                else
+                    return function() return not func_or_val end
+                end
+            end
+
+            local function chiming()
+                local sec = os.date("*t").sec
+                return sec >= 55 or sec <= 5
+            end
+
             return {
                 options = {
                     theme = "auto",
@@ -30,20 +48,12 @@ return {
                     disabled_filetypes = { statusline = { "dashboard", "lazy", "alpha" } },
                 },
                 sections = {
-                    lualine_a = { "mode" },
-                    lualine_b = { "branch" },
+                    lualine_a = { "fancy_mode" },
+                    lualine_b = { "fancy_branch" },
                     lualine_c = {
-                        {
-                            "diagnostics",
-                            symbols = {
-                                error = icons.diagnostics.Error,
-                                warn = icons.diagnostics.Warn,
-                                info = icons.diagnostics.Info,
-                                hint = icons.diagnostics.Hint,
-                            },
-                        },
-                        { "filetype", icon_only = true, separator = "", padding = { left = 1, right = 0 } },
-                        { "filename", path = 1, symbols = { modified = "  ", readonly = "", unnamed = "" } },
+                        { "fancy_diagnostics" },
+                        { "fancy_filetype", icon_only = true, separator = "", padding = { left = 1, right = 0 } },
+                        { "filename", path = 0, symbols = { modified = "  ", readonly = "", unnamed = "" } },
                         -- stylua: ignore
                         {
                             function() return require("nvim-navic").get_location() end,
@@ -70,37 +80,34 @@ return {
                         },
                         -- Lazy update indicator
                         -- { require("lazy.status").updates, cond = require("lazy.status").has_updates, color = fg("Special") },
-                        {
-                            "diff",
-                            symbols = {
-                                added = icons.git.added,
-                                modified = icons.git.modified,
-                                removed = icons.git.removed,
-                            },
-                        },
-                        { "fileformat", separator = "" },
-                        { "o:encoding" },
+                        { "fancy_diff", },
+                        { "fancy_macro", cond = inRecording },
+                        { "fileformat", separator = "", padding = 0, cond = invert(inRecording) },
+                        { "o:encoding", separator = "", cond = invert(inRecording) },
                     },
                     lualine_y = {
                         { getWords, icon="" },
-                        { "searchcount",
-                            cond = function ()
-                                return not use_noice
-                            end,
+                        { "fancy_searchcount",
+                            cond = invert(use_noice),
                             fmt = function (s)
                                 if string.len(s) > 0 then
-                                    return vim.fn.getreg("/")..s
+                                    return vim.fn.getreg("/") .. " [" .. s .. "]"
                                 else
                                     return s
                             end
                         end },
-                        { "progress", separator = " ", padding = { left = 1, right = 0 } },
-                        { "location", padding = { left = 0, right = 1 } },
+                        { "fancy_location", separator = "", padding = { left = 1, right = 0, }},
+                        { "progress", },
                     },
                     lualine_z = {
-                        function()
-                            return " " .. os.date("%X")
-                        end,
+                        {
+                            function() return " " .. os.date("%X") end,
+                            cond = chiming,
+                        },
+                        {
+                            "fancy_lsp_servers",
+                            cond = invert(chiming),
+                        },
                     },
                 },
                 extensions = { "nvim-tree", "quickfix" },
