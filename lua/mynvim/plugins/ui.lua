@@ -137,6 +137,8 @@ return {
             "BufReadPost",
             "BufWritePost",
         },
+        -- bugs are in the latest commits, use tagged versions
+        version = "^4.0.0",
         keys = {
             { "<leader>bd", function() require('dropbar.api').pick() end, desc = "Pick dropbar" }
         }
