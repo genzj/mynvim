@@ -187,4 +187,14 @@ return {
             ai.setup(opts)
         end,
     },
+    {
+        'tzachar/highlight-undo.nvim',
+        keys = {
+            { 'u', desc = "Undo with highlight-undo" },
+            { '<C-r>', desc = "Redo with highlight-undo" },
+        },
+        opts = {
+            duration = 500,
+        },
+    },
 }
