@@ -14,13 +14,19 @@ return {
   -- catppuccin
   {
     "catppuccin/nvim",
+    lazy = false,
+    priority = 1000,
     name = "catppuccin",
+    config = function (_, opts)
+      require("catppuccin").setup(opts)
+      vim.cmd.colorscheme('catppuccin')
+    end
   },
 
   {
     "uloco/bluloco.nvim",
-    lazy = false,
-    priority = 1000,
+    -- lazy = false,
+    -- priority = 1000,
     dependencies = { 'rktjmp/lush.nvim' },
     opts = {
       -- bluoco colors are enabled in gui terminals per default.
