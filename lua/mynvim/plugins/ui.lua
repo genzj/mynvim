@@ -101,7 +101,7 @@ return {
                     "n",
                     "<leader>" .. num,
                     function ()
-                        require('bufferline').go_to_buffer(num)
+                        require('bufferline').go_to(num)
                     end,
                     { desc = "Go to buffer "..num }
                 )
@@ -147,20 +147,24 @@ return {
     -- indent guides for Neovim
     {
         "lukas-reineke/indent-blankline.nvim",
+        main = "ibl",
         event = "BufReadPre",
         keys = {
-            { '<leader>og', '<Cmd>IndentBlanklineToggle!<CR>', desc="Toggle indent rule" },
+            { '<leader>og', '<Cmd>IBLToggle<CR>', desc="Toggle indent rule" },
         },
         opts = {
-            -- char = "▏",
-            char = "│",
-            filetype_exclude = { "help", "alpha", "dashboard", "neo-tree", "Trouble", "lazy" },
-            show_trailing_blankline_indent = false,
-            show_current_context = true,
-            show_current_context_start = true,
-            use_treesitter_scope = false,
-            -- char_highlight_list = { 'String', 'Function', 'Number', 'Special' },
-            context_highlight_list = { 'Error' },
+            exclude = {
+                filetypes = { "help", "alpha", "dashboard", "neo-tree", "Trouble", "lazy" },
+            },
+            indent = {
+                -- char = "▏",
+                char = "│",
+            },
+            scope = {
+                -- highlight = { 'String', 'Function', 'Number', 'Special' },
+                highlight = { 'Error' },
+                -- injected_languages = false,
+            },
         },
     },
 
