@@ -1,0 +1,19 @@
+{
+  "$schema": "https://cdn.jsdelivr.net/gh/Zhengqbbb/cz-git@1.7.1/docs/public/schema/cz-git.json",
+  "scopes": [
+    "colorscheme",
+    "command",
+    "dashboard",
+    "gui",
+    "keymap",
+    "lsp",
+    "lualine",
+    "option",
+    "plugin",
+    "py",
+    "statusline",
+    "telescope",
+    "ui",
+    "win32"
+  ]
+}
