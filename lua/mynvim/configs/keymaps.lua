@@ -23,7 +23,7 @@ group('<leader>y', 'Copy to system clipboard or terminal')
 set('nnoremap', '<leader>yy', '"+y', 'Copy to system clipboard')
 set('vnoremap', '<leader>yy', '"+y', 'Copy to system clipboard')
 -- Copy all to clipboard
-set('nnoremap', '<leader>yA', '<Cmd>%yank+<CR>', 'Copy all to system clipboard')
+set('nnoremap', '<silent><leader>yA', '<Cmd>silent %yank+<CR>', 'Copy all to system clipboard')
 
 -- hide highlight search
 set('nnoremap', '<silent><F12>', '<Cmd>nohls<CR>', 'Hide highlight search')
