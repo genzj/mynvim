@@ -37,7 +37,7 @@ return {
     -- Use Neovim as a language server to inject LSP features with arbitrary
     -- programs
     {
-        "jose-elias-alvarez/null-ls.nvim",
+        "nvimtools/none-ls.nvim",
         event = "BufReadPre",
         dependencies = { "mason.nvim" },
         opts = function()
@@ -72,7 +72,7 @@ return {
 
             return {
                 -- check the full list:
-                --   https://github.com/jose-elias-alvarez/null-ls.nvim/blob/main/doc/BUILTINS.md
+                --   https://github.com/nvimtools/none-ls.nvim/blob/main/doc/BUILTINS.md
                 sources = source_config,
             }
         end,

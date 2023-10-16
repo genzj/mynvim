@@ -77,7 +77,7 @@ vim.g.mynvim_install = {
     },
 
     -- "nls." prefixed items will be loaded from the null-ls package
-    -- https://github.com/jose-elias-alvarez/null-ls.nvim/blob/main/doc/BUILTINS.md
+    -- https://github.com/nvimtools/none-ls.nvim/blob/main/doc/BUILTINS.md
     nls = {
         "nls.builtins.formatting.rustfmt",
     },
