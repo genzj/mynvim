@@ -87,6 +87,7 @@ local defaults = {
         "nls.builtins.formatting.shfmt",
     },
 
+    ---@type table<string, lspconfig.Config>
     servers = {
         jsonls = {},
         bashls = {},
@@ -120,7 +121,7 @@ local defaults = {
 
     -- you can do any additional lsp server setup here
     -- return true if you don't want this server to be setup with lspconfig
-    ---@type table<string, fun(server:string, opts:_.lspconfig.options):boolean?>
+    ---@type table<string, fun(server:string, opts:lspconfig.Config):boolean?>
     setup = {
         -- example to setup with typescript.nvim
         -- tsserver = function(_, opts)
