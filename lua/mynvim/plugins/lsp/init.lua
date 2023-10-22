@@ -64,7 +64,9 @@ return {
             local source_config = {}
             for i = 1, #nls_installs  do
                 local item = nls_installs[i]
-                if string.sub(item, 1, 4) == "nls." then
+                local nls_prefix = "nls."
+                local null_ls_prefix = "null_ls."
+                if string.sub(item, 1, #nls_prefix) == nls_prefix or string.sub(item, 1, #null_ls_prefix) == null_ls_prefix then
                     item = get_nls_obj(parse_dots(item))
                 end
                 table.insert(source_config, item)

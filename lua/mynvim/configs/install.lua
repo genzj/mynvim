@@ -1,3 +1,51 @@
+local blends = {
+    rust = {
+        treesitter = {
+            "rust",
+        },
+        nls = {
+            "nls.builtins.formatting.rustfmt",
+        },
+        servers = {
+            ["rust_analyzer"] = {
+                settings = {
+                    ['rust-analyzer'] = {
+                        imports = {
+                            granularity = {
+                                group = "module",
+                            },
+                            prefix = "self",
+                        },
+                        cargo = {
+                            buildScripts = {
+                                enable = true,
+                            },
+                        },
+                        procMacro = {
+                            enable = true
+                        },
+                    }
+                },
+            },
+        },
+    },
+    python = {
+        nls = {
+            "null_ls.builtins.diagnostics.mypy",
+            -- isortd is optimal but not supported by Mason yet
+            -- "null_ls.builtins.formatting.isortd",
+            "null_ls.builtins.formatting.isort",
+        },
+        mason = {
+            "isort",
+            "mypy",
+        },
+        servers = {
+            ["pylsp"] = {},
+        },
+    },
+}
+
 local defaults = {
     treesitter = {
         "bash",
@@ -96,12 +144,39 @@ local function concatArray(a, b)
     return result
 end
 
+local function mergeConfig(origin, new)
+    return {
+        treesitter = concatArray(origin.treesitter or {}, new.treesitter or {}),
+        mason = concatArray(origin.mason or {}, new.mason or {}),
+        nls = concatArray(origin.nls or {}, new.nls or {}),
+        servers = vim.tbl_deep_extend("force", origin.servers or {}, new.servers or {}),
+        setup = vim.tbl_deep_extend("force", origin.setup or {}, new.setup or {}),
+        plugins = concatArray(origin.plugins or {}, new.plugins or {}),
+    }
+end
+
+local function blendInto(config, blendName)
+    local blend = blends[blendName]
+    if blend == nil then
+        error("Unrecognized blend name '" .. blendName .. "'")
+    end
+    return mergeConfig(config, blend)
+end
+
+local function blendAll(config, blendNames)
+    for _, blendName in ipairs(blendNames) do
+        config = blendInto(config, blendName)
+    end
+    return config
+end
+
 local mynvim_install = vim.g.mynvim_install or {}
-return {
-    treesitter = concatArray(defaults.treesitter, mynvim_install.treesitter or {}),
-    mason = concatArray(defaults.mason, mynvim_install.mason or {}),
-    nls = concatArray(defaults.nls, mynvim_install.nls or {}),
-    servers = vim.tbl_deep_extend("force", defaults.servers, mynvim_install.servers or {}),
-    setup = vim.tbl_deep_extend("force", defaults.setup, mynvim_install.setup or {}),
-    plugins = mynvim_install.plugins or {},
-}
+local config = mergeConfig(
+    blendAll(defaults, mynvim_install.blends or {}),
+    mynvim_install
+)
+
+-- Create a command to pretty print the config variable
+vim.cmd('command! ShowInstallConfig lua= require("mynvim.configs.install")')
+
+return config

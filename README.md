@@ -58,13 +58,19 @@ pip install -U -r requirements.txt
 To add per-host config for languages, edit the `~/.config/nvim/init.vim` to set
 `g:mynvim_install` to extend the
 [`mynvim.configs.install`](https://github.com/genzj/mynvim/blob/main/lua/mynvim/configs/install.lua)
-table.
+table. Run vim command `:ShowInstallConfig` to inspect the final config.
 
 E.g.:
 
 ```vimscript
 lua <<EOF
 vim.g.mynvim_install = {
+    -- optional presets, read "mynvim.configs.install" variable "blends" for
+    -- details
+    blends = {
+        "rust",
+        "python",
+    },
     treesitter = {
         "fish",
         "rust",
@@ -72,11 +78,11 @@ vim.g.mynvim_install = {
 
     -- Install non-lsp extentions, such as null-ls dependencies.
     -- For lsp-config supported servers, check the `servers` key below.
+    -- Package list: https://mason-registry.dev/registry/list
     mason = {
-        "rustfmt",
     },
 
-    -- "nls." prefixed items will be loaded from the null-ls package
+    -- "nls." or "null_ls." prefixed items will be loaded from the null-ls package
     -- https://github.com/nvimtools/none-ls.nvim/blob/main/doc/BUILTINS.md
     nls = {
         "nls.builtins.formatting.rustfmt",
