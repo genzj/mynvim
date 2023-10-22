@@ -80,7 +80,10 @@ function M.rename()
     if pcall(require, "inc_rename") then
         return ":IncRename " .. vim.fn.expand("<cword>")
     else
-        vim.lsp.buf.rename()
+        -- run in next tick to avoid textlock (probably caused by the which-key)
+        vim.schedule(function ()
+            vim.lsp.buf.rename()
+        end)
     end
 end
 
