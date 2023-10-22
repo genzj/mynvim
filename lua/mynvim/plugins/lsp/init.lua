@@ -16,10 +16,15 @@ return {
     {
         "williamboman/mason.nvim",
         cmd = "Mason",
-        -- keys = { { "<leader>cm", "<cmd>Mason<cr>", desc = "Mason" } },
-
+        keys = {
+            { "<leader>cm", "<cmd>Mason<cr>", desc = "Mason" }
+        },
         opts = {
             ensure_installed = require("mynvim.configs").install.mason,
+            registries = {
+                "lua:mynvim.mason.registry",
+                "github:mason-org/mason-registry",
+            },
         },
         ---@param opts MasonSettings | {ensure_installed: string[]}
         config = function(_, opts)
