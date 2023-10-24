@@ -71,7 +71,12 @@ function M.on_attach(client, buffer)
             opts.has = nil
             opts.silent = true
             opts.buffer = buffer
-            vim.keymap.set(keys.mode or "n", keys[1], keys[2], opts)
+            lhs = keys[1] or keys.lhs
+            rhs = keys[2] or keys.rhs
+            if lhs == nil or rhs == nil then
+                error("bad keymap: " .. vim.inspect(keymaps))
+            end
+            vim.keymap.set(keys.mode or "n", lhs, rhs, opts)
         end
     end
 end
