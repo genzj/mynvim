@@ -29,7 +29,7 @@ return {
 						"!Cidr",
 						"!Ref",
 						"!Sub",
-						"!GetAtt sequence",
+						"!GetAtt",
 						"!GetAZs",
 						"!ImportValue sequence",
 						"!Select sequence",
