@@ -62,7 +62,7 @@ return {
     -- LSP progress indicator without relying on Noice
     {
         "j-hui/fidget.nvim",
-        branch = "legacy",
+        version = "^1.1.0",
         config = true,
         event = "VeryLazy",
         enabled = not require("mynvim.configs").switches.use_noice,
