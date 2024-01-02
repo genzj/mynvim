@@ -39,10 +39,10 @@ set.grepprg = "rg --vimgrep"
 if vim.fn.has('win32') == 1 then
     set.guifont = "JetBrainsMonoNL Nerd Font Mono:h12:b"
 else
-    set.guifont = {
-        "JetBrainsMono_Nerd_Font:h12.000000",
-        "Inconsolata-dz_for_Powerline:h12",
-        "Monospace 12"
-    }
+    set.guifont = table.concat({
+        "JetBrainsMono_Nerd_Font",
+        -- "Inconsolata-dz_for_Powerline",
+        -- "Monospace"
+    }, ",") .. ":h12"
 end
 
