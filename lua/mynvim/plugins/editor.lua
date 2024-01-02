@@ -10,6 +10,7 @@ return {
             "nvim-tree/nvim-web-devicons",
             "MunifTanjim/nui.nvim",
         },
+        version = "~3",
         keys = {
             {
                 "<F3>",
@@ -46,13 +47,6 @@ return {
             source_selector = {
                 winbar = true,
                 statusline = false,
-
-                -- for Nerd Fonts v3
-                sources = {
-                    { source = "filesystem", display_name = " 󰉓 Files " },
-                    { source = "buffers", display_name = "  Buffers ", },
-                    { source = "git_status", display_name = " 󰊢 Git " },
-                },
             }
         },
     },
