@@ -1,4 +1,17 @@
 return {
+    -- Bmessages.nvim better messages using an auto-updating buffer :Bmessages.
+    {
+        "https://github.com/ariel-frischer/bmessages.nvim.git",
+        event = "CmdlineEnter",
+        opts = {},
+        keys = {
+            {
+                "<leader>ub",
+                "<Cmd>Bmessages<CR>",
+                desc = "Show messages",
+            }
+        },
+    },
     -- better vim.notify
     {
         "rcarriga/nvim-notify",
