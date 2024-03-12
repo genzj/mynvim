@@ -8,13 +8,14 @@ return {
             "meuter/lualine-so-fancy.nvim",
         },
         opts = function(plugin)
-            local icons = require("mynvim.configs").icons
+            local icons = require("mynvim.configs.icons").icons.ui
             local use_noice = require("mynvim.configs").switches.use_noice
 
             local function fg(name)
                 return function()
                     ---@type {foreground?:number}?
-                    local hl = vim.api.nvim_get_hl_by_name(name, true)
+                    -- local hl = vim.api.nvim_get_hl_by_name(name, true)
+                    local hl = vim.api.nvim_get_hl(0, {name = name})
                     return hl and hl.foreground and { fg = string.format("#%06x", hl.foreground) }
                 end
             end
@@ -28,6 +29,18 @@ return {
                 return string.len(vim.fn.reg_recording()) > 0
             end
 
+            local function isVisualMode()
+                return vim.fn.mode():find("[Vv]") ~= nil
+            end
+
+            local function selectionCount()
+                local fn = vim.fn
+                local starts = fn.line("v")
+                local ends = fn.line(".")
+                local lines = starts <= ends and ends - starts + 1 or starts - ends + 1
+                return icons.selected .. tostring(lines) .. "L " .. tostring(fn.wordcount().visual_chars) .. "C"
+            end
+
             local function invert(func_or_val)
                 if type(func_or_val) == 'function' then
                     return function() return not func_or_val() end
@@ -37,7 +50,8 @@ return {
             end
 
             local function chiming()
-                if #vim.lsp.buf_get_clients() == 0 then
+                local bufnr = vim.api.nvim_get_current_buf()
+                if #vim.lsp.get_clients({ bufnr = bufnr }) == 0 then
                     -- always show clock if no LSP clients
                     return true
                 else
@@ -91,7 +105,8 @@ return {
                         { "o:encoding", separator = "", cond = invert(inRecording) },
                     },
                     lualine_y = {
-                        { getWords, icon="" },
+                        { getWords, icon=icons.word },
+                        { selectionCount, cond = isVisualMode },
                         { "fancy_searchcount",
                             cond = invert(use_noice),
                             fmt = function (s)
@@ -106,7 +121,7 @@ return {
                     },
                     lualine_z = {
                         {
-                            function() return " " .. os.date("%X") end,
+                            function() return icons.clock .. os.date("%X") end,
                             cond = chiming,
                         },
                         {

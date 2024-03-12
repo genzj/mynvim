@@ -2,6 +2,11 @@
 --  https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/config/init.lua#L14
 return {
     icons = {
+        ui = {
+            selected = "󰫙 ",
+            word = "",
+            clock = " ",
+        },
         diagnostics = {
             Error = " ",
             Warn = " ",
