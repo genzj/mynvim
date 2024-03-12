@@ -17,7 +17,6 @@ return {
         ---@type TSConfig
         opts = {
             indent = { enable = true },
-            context_commentstring = { enable = true, enable_autocmd = false },
             ensure_installed = require("mynvim.configs").install.treesitter,
             incremental_selection = {
                 enable = true,

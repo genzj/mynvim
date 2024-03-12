@@ -169,7 +169,16 @@ return {
     },
 
     -- comments
-    { "JoosepAlviste/nvim-ts-context-commentstring", lazy = true },
+    {
+        "JoosepAlviste/nvim-ts-context-commentstring",
+        lazy = true,
+        config = function ()
+            require("ts_context_commentstring").setup({
+                -- disable autocmd to use mini.comment
+                enable_autocmd = false,
+            })
+        end
+    },
     {
         "echasnovski/mini.comment",
         event = "VeryLazy",
@@ -184,11 +193,11 @@ return {
             { "<leader>c<space>", "gc", desc = "Toggle comment", remap = true, mode = {"v"} }, -- VIM style shortcut
         },
         opts = {
-            hooks = {
-                pre = function()
-                    require("ts_context_commentstring.internal").update_commentstring({})
+            options = {
+                custom_commentstring = function()
+                    return require('ts_context_commentstring').calculate_commentstring() or vim.bo.commentstring
                 end,
-            },
+            }
         },
         config = function(_, opts)
             require("mini.comment").setup(opts)
