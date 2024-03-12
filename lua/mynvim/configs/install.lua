@@ -33,11 +33,12 @@ local defaults = {
 
     nls = {
         -- nls.builtins.formatting.prettierd,
-        "nls.builtins.formatting.stylua",
+        "null_ls.builtins.formatting.stylua",
 
         -- shell
-        "nls.builtins.code_actions.shellcheck",
-        "nls.builtins.formatting.shfmt",
+        "null_ls.builtins.formatting.shfmt",
+        -- requires "gbprod/none-ls-shellcheck.nvim",
+        "none-ls-shellcheck.code_actions",
     },
 
     ---@type table<string, lspconfig.Config>

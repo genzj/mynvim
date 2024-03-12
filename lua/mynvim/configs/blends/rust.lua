@@ -3,7 +3,6 @@ return {
 		"rust",
 	},
 	nls = {
-		"nls.builtins.formatting.rustfmt",
 	},
 	servers = {
 		["rust_analyzer"] = {

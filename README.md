@@ -82,10 +82,18 @@ vim.g.mynvim_install = {
     mason = {
     },
 
-    -- "nls." or "null_ls." prefixed items will be loaded from the null-ls package
-    -- https://github.com/nvimtools/none-ls.nvim/blob/main/doc/BUILTINS.md
     nls = {
-        "nls.builtins.formatting.rustfmt",
+        -- "nls." or "null_ls." (recommended) prefixed items will be loaded
+        -- from the null-ls package
+        -- https://github.com/nvimtools/none-ls.nvim/blob/main/doc/BUILTINS.md
+        "null_ls.builtins.formatting.stylua",
+
+        -- "package.subpackage:a.b.c" is equivalent to
+        -- require("package.subpackage").a.b.c
+
+        -- the ":" can be ommitted if the default object is desired, i.e.
+        -- "package.subpackage" is equivalent to "package.subpackage:" and
+        -- require("package.subpackage")
     },
 
     -- LSP server configs. Configured servers will be installed by mason-lspconfig

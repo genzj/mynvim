@@ -44,18 +44,12 @@ return {
     {
         "nvimtools/none-ls.nvim",
         event = "BufReadPre",
-        dependencies = { "mason.nvim" },
+        dependencies = {
+            "mason.nvim",
+            "gbprod/none-ls-shellcheck.nvim",
+        },
         opts = function()
             local nls = require("null-ls")
-
-            local get_nls_obj = function (keys)
-                local obj = nls
-                for i = 2, #keys do
-                    obj = obj[keys[i]]
-                end
-
-                return obj
-            end
 
             local parse_dots = function (str)
                 local keys = {}
@@ -65,17 +59,55 @@ return {
                 return keys
             end
 
+            local get_field = function (pkg, field)
+                local obj = pkg
+                local keys = parse_dots(field)
+                for i = 2, #keys do
+                    obj = obj[keys[i]]
+                end
+
+                return obj
+            end
+
+            local source_from_str = function (key)
+                local nls_prefix = "nls."
+                local null_ls_prefix = "null_ls."
+                local field = ""
+                local pkg = nil
+                local pkg_end = key:find(":")
+
+                if pkg_end ~= nil then
+                    -- "x.y.z:a.b.c"
+                    -- pkg = require("x.y.z")
+                    -- field = "a.b.c"
+                    pkg = require(key:sub(1, pkg_end - 1))
+                    field = key:sub(pkg_end + 1)
+                elseif key:sub(1, #nls_prefix) == nls_prefix or key:sub(1, #null_ls_prefix) == null_ls_prefix then
+                    -- "nls.a.b.c" or "null_ls.a.b.c"
+                    -- pkg = nls
+                    -- field = "a.b.c"
+                    pkg = nls
+                    field = key:sub(key:find(".") + 1)
+                else
+                    -- "x.y.z.a.b.c"
+                    -- pkg = "x.y.x.a.b.c"
+                    -- field = nil
+                    pkg = require(key)
+                end
+                if field == "" then
+                    return pkg
+                else
+                    return get_field(pkg, field)
+                end
+            end
+
             local nls_installs = require("mynvim.configs").install.nls
             local source_config = {}
             for i = 1, #nls_installs  do
                 local item = nls_installs[i]
-                local nls_prefix = "nls."
-                local null_ls_prefix = "null_ls."
-                if string.sub(item, 1, #nls_prefix) == nls_prefix or string.sub(item, 1, #null_ls_prefix) == null_ls_prefix then
-                    item = get_nls_obj(parse_dots(item))
-                end
-                table.insert(source_config, item)
+                table.insert(source_config, source_from_str(item))
             end
+            -- table.insert(source_config, require("none-ls-shellcheck.code_actions"))
 
             return {
                 -- check the full list:
