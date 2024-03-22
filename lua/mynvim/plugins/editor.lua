@@ -191,4 +191,9 @@ return {
             duration = 500,
         },
     },
+    {
+        'mcauley-penney/visual-whitespace.nvim',
+        event = 'VeryLazy',
+        config = true
+    },
 }
