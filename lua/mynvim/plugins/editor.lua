@@ -196,4 +196,15 @@ return {
         event = 'VeryLazy',
         config = true
     },
+    {
+        'tpope/vim-eunuch',
+        cmd = {
+            'Remove',
+            'Delete',
+            'Move',
+            'Mkdir',
+            'SudoWrite',
+            'SudoEdit',
+        },
+    },
 }
