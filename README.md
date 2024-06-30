@@ -1,31 +1,28 @@
 # My NeoVim Configurations
 
-## Python provider and dependencies
+## Prerequisites
 
-Following configurations assume that all Python dependencies are installed into
-a virtualenv called `nvim`, e.g.:
+1. Install the [mise CLI](https://mise.jdx.dev/getting-started.html#_1-install-mise-cli)
+1. Add Python 3.11 to mise by running `mise use --global python@3.11`
+1. Create a virtualenv for NVIM Python providers: `mise exec python@3.11 -- python -m venv ~/.venvs/nvim`
 
-```sh
-pyenv virtualenv 3.11 nvim
-pyenv shell nvim
-```
-
-To install or upgrade Python dependencies:
-
-```sh
-pip install -U -r requirements.txt
-```
 
 ## Usage
 
 1. Clone this repo to replace your `~/.config/nvim/` folder:
     ```shell
     mv ~/.config/nvim/ ~/.config/nvim.backup
-    git clone https://github.com/genzj/mynvimrc.git
+    git clone https://github.com/genzj/mynvim.git ~/.config/nvim
+    ```
+1. Install Python dependencies:
+    ```sh
+    cd ~/.config/nvim/
+    which pip  # make sure the output shows a path to virtualenv, e.g. ~/.venvs/nvim/bin/pip
+    [[ $(which pip) == "$HOME/.venvs/nvim/bin/pip" ]] && pip install -U -r requirements.txt
     ```
 1. Create the init file `~/.config/nvim/init.vim` with following content:
     ```vimscript
-    lua require("mynvimrc.lua")
+    lua require("mynvim")
     ```
 1. (Windows) Install LLVM by following [this
    wiki](https://github.com/nvim-treesitter/nvim-treesitter/wiki/Windows-support#llvm-clang)
@@ -50,6 +47,8 @@ pip install -U -r requirements.txt
     set runtimepath+=e:/proj/mynvim
     lua require("mynvim")
    ```
+1. Run `nvim` and Lazy should install all plugins automatically.
+1. After Lazy finishes its work, quit and reopen NVIM to make sure all plugins are loaded.
 
 ## Customization
 
