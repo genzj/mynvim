@@ -47,6 +47,9 @@
     set runtimepath+=e:/proj/mynvim
     lua require("mynvim")
    ```
+1. Install
+    [ripgrep](https://github.com/BurntSushi/ripgrep?tab=readme-ov-file#installation)
+    for enhanced grep and substitution experience.
 1. Run `nvim` and Lazy should install all plugins automatically.
 1. After Lazy finishes its work, quit and reopen NVIM to make sure all plugins are loaded.
 

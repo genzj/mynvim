@@ -207,4 +207,18 @@ return {
             'SudoEdit',
         },
     },
+
+    -- Use ripgrep for substitution
+    {
+        "chrisgrieser/nvim-rip-substitute",
+        cmd = "RipSubstitute",
+        keys = {
+            {
+                "<leader>f",
+                function() require("rip-substitute").sub() end,
+                mode = { "n", "x" },
+                desc = " rip substitute",
+            },
+        },
+    },
 }
