@@ -1,12 +1,5 @@
 # My NeoVim Configurations
 
-## Prerequisites
-
-1. Install the [mise CLI](https://mise.jdx.dev/getting-started.html#_1-install-mise-cli)
-1. Add Python 3.11 to mise by running `mise use --global python@3.11`
-1. Create a virtualenv for NVIM Python providers: `mise exec python@3.11 -- python -m venv ~/.venvs/nvim`
-
-
 ## Usage
 
 1. Clone this repo to replace your `~/.config/nvim/` folder:
@@ -15,11 +8,22 @@
     git clone https://github.com/genzj/mynvim.git ~/.config/nvim
     ```
 1. Install Python dependencies:
-    ```sh
-    cd ~/.config/nvim/
-    which pip  # make sure the output shows a path to virtualenv, e.g. ~/.venvs/nvim/bin/pip
-    [[ $(which pip) == "$HOME/.venvs/nvim/bin/pip" ]] && pip install -U -r requirements.txt
-    ```
+
+    1. Install [mise](https://mise.jdx.dev/getting-started.html#_1-install-mise-cli)
+    1. Create the virtualenv and install dependencies into it by:
+        ```sh
+        cd ~/.config/nvim/
+        mise install python@3.11
+        python -m venv ~/.venvs/nvim
+        which pip  # make sure the output shows a path to virtualenv, e.g. ~/.venvs/nvim/bin/pip
+        pip install -U -r requirements.txt
+        ```
+    1. Alternatively, a Python 3.11+ virtualenv can be created in any of the
+       following path with any other methods. `configs/python.lua` will search
+       for virtualenv in the same order:
+        - `$WORKON_HOME/nvim/`
+        - `~/.venvs/nvim/`
+        - `$PYENV_ROOT/versions/nvim`
 1. Create the init file `~/.config/nvim/init.vim` with following content:
     ```vimscript
     lua require("mynvim")
