@@ -34,17 +34,15 @@ local function extract_mode(cmd)
 end
 
 function M.group(prefix, name)
-    M.try_register({
-        [prefix] = {
-            name=name
-        },
+    M.try_add({
+        {prefix, group=name},
     })
 end
 
-function M.try_register(...)
+function M.try_add(...)
     local ok, wk = pcall(require, "which-key")
     if ok then
-        return wk.register(...)
+        return wk.add(...)
     end
     return nil
 end

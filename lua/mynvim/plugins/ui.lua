@@ -16,8 +16,8 @@ return {
     {
         "rcarriga/nvim-notify",
         keys = function ()
-            require('mynvim.utils').keymap.try_register({
-                ["<leader>u"] = {name = "Notifications"},
+            require('mynvim.utils').keymap.try_add({
+                { "<leader>u", group = "Notifications" },
             })
             return {
                 {
@@ -59,9 +59,7 @@ return {
         },
         -- stylua: ignore
         keys = function ()
-            require('mynvim.utils').keymap.try_register({
-                ["<leader>u"] = {name = "Notifications"},
-            })
+            require('mynvim.utils').keymap.group("<leader>u", "Notifications")
             return {
                 { "<S-Enter>", function() require("noice").redirect(vim.fn.getcmdline()) end, mode = "c", desc = "Redirect Cmdline" },
                 { "<leader>ul", function() require("noice").cmd("last") end, desc = "Noice Last Message" },

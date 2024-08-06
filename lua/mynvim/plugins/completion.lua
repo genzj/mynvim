@@ -136,6 +136,7 @@ return {
         keys = function(plugin, keys)
             -- Populate the keys based on the user's options
             local opts = require("lazy.core.plugin").values(plugin, "opts", false)
+            require('mynvim.utils').keymap.group("<leader>s", "Surrounding")
             local mappings = {
                 { opts.mappings.add, desc = "Add surrounding", mode = { "n", "v" } },
                 { opts.mappings.delete, desc = "Delete surrounding" },
@@ -145,13 +146,9 @@ return {
                 { opts.mappings.replace, desc = "Replace surrounding" },
                 { opts.mappings.update_n_lines, desc = "Update `MiniSurround.config.n_lines`" },
             }
-            require('mynvim.utils').keymap.try_register(opts.groups)
             return vim.list_extend(mappings, keys)
         end,
         opts = {
-            groups = {
-                ["<leader>s"] = { name = "Surrounding" },
-            },
             mappings = {
                 add = "<leader>sa", -- Add surrounding in Normal and Visual modes
                 delete = "<leader>sd", -- Delete surrounding

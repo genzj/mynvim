@@ -43,8 +43,8 @@ function M.get(buffer)
     })
   end
   M._groups = M._groups or {
-    g = { name = "Goto" },
-    ["<leader>c"] = { name = "Code actions" },
+    { "g", group = "Goto" },
+    { "<leader>c", group = "Code actions" },
   }
   return M._keys, M._groups
 end
@@ -53,7 +53,7 @@ function M.on_attach(client, buffer)
     local Keys = require("lazy.core.handler.keys")
     local keymaps = {} ---@type table<string,LazyKeys|{has?:string}>
     local all_keys, groups = M.get(buffer)
-    require('mynvim.utils').keymap.try_register(groups, { buffer = buffer })
+    require('mynvim.utils').keymap.try_add(groups, { buffer = buffer })
 
     for _, value in ipairs(all_keys) do
         local keys = Keys.parse(value)

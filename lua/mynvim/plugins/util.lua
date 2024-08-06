@@ -13,15 +13,13 @@ return {
 
   {
     "folke/which-key.nvim",
+    dependencies = {
+        { 'echasnovski/mini.icons', version = false },
+    },
     config = function()
       vim.o.timeout = true
       vim.o.timeoutlen = 300
-      require("which-key").setup({
-        operators = {
-            ["<leader>yy"] = "Copy to system clipboard",
-            ["<leader>sa"] = "Add surrounding",
-        }
-      })
+      require("which-key").setup()
     end,
   },
 }

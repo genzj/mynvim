@@ -154,28 +154,30 @@ return {
             }
         end,
         config = function(_, opts)
-            require('mynvim.utils').keymap.try_register(
+            require('mynvim.utils').keymap.try_add(
                 {
-                    ['ab'] = [[Alias for ), ], } (mini.ai)]],
-                    ['ib'] = [[Alias for ), ], } (mini.ai)]],
-                    ['aq'] = [[Alias for ", ', ` (mini.ai)]],
-                    ['iq'] = [[Alias for ", ', ` (mini.ai)]],
-                    ['a?'] = [[User prompt (mini.ai)]],
-                    ['i?'] = [[User prompt (mini.ai)]],
-                    ['aa'] = [[Argument (mini.ai)]],
-                    ['ia'] = [[Argument (mini.ai)]],
-                    ['at'] = [[Tag (mini.ai)]],
-                    ['it'] = [[Tag (mini.ai)]],
-                    ['af'] = [[Function (mini.ai)]],
-                    ['if'] = [[Function (mini.ai)]],
-                    ['aF'] = [[Function call (mini.ai)]],
-                    ['iF'] = [[Function call (mini.ai)]],
-                    ['ao'] = [[Block/Condition/Loop (mini.ai)]],
-                    ['io'] = [[Block/Condition/Loop (mini.ai)]],
-                    ['ac'] = [[Class (mini.ai)]],
-                    ['ic'] = [[Class (mini.ai)]],
-                },
-                { mode = 'o', prefix = '' }
+                    {
+                        mode = { "o" },
+                        { "a?", desc = "User prompt (mini.ai)" },
+                        { "aF", desc = "Function call (mini.ai)" },
+                        { "aa", desc = "Argument (mini.ai)" },
+                        { "ab", desc = "Alias for ), ], } (mini.ai)" },
+                        { "ac", desc = "Class (mini.ai)" },
+                        { "af", desc = "Function (mini.ai)" },
+                        { "ao", desc = "Block/Condition/Loop (mini.ai)" },
+                        { "aq", desc = "Alias for \", ', ` (mini.ai)" },
+                        { "at", desc = "Tag (mini.ai)" },
+                        { "i?", desc = "User prompt (mini.ai)" },
+                        { "iF", desc = "Function call (mini.ai)" },
+                        { "ia", desc = "Argument (mini.ai)" },
+                        { "ib", desc = "Alias for ), ], } (mini.ai)" },
+                        { "ic", desc = "Class (mini.ai)" },
+                        { "if", desc = "Function (mini.ai)" },
+                        { "io", desc = "Block/Condition/Loop (mini.ai)" },
+                        { "iq", desc = "Alias for \", ', ` (mini.ai)" },
+                        { "it", desc = "Tag (mini.ai)" },
+                    },
+                }
             )
             local ai = require("mini.ai")
             ai.setup(opts)

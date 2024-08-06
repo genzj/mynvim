@@ -6,14 +6,11 @@ return {
 		cmd = "Telescope",
 		version = false, -- telescope did only one release, so use HEAD for now
         keys = function ()
-            require('mynvim.utils').keymap.try_register({
-                [ "<leader>t" ] = {
-                    name="Telescope",
-                    f = { name = "File" },
-                    g = { name = "Git" },
-                    s = { name = "Search" },
-                },
-            })
+            local add_group = require('mynvim.utils').keymap.group
+            add_group("<leader>t", "Telescope")
+            add_group("<leader>tf", "File")
+            add_group("<leader>tg", "Git")
+            add_group("<leader>ts", "Search")
             return {
                 { "<leader>,", "<cmd>Telescope buffers show_all_buffers=true<cr>", desc = "Switch Buffer" },
                 { "<leader>G", Util.telescope("live_grep"), desc = "Find in Files (Grep)" },
