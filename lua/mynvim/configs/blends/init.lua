@@ -1,8 +1,9 @@
 local M = {}
 local blends = {
-	"rust",
 	"python",
-    "cloudformation",
+	"rust",
+	"cloudformation",
+	"gotmpl",
 }
 
 local function init()

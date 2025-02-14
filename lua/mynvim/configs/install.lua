@@ -116,7 +116,11 @@ local function blendInto(config, blendName)
     if blend == nil then
         error("Unrecognized blend name '" .. blendName .. "'")
     end
-    return mergeConfig(config, blend)
+    local mergedConfig = mergeConfig(config, blend)
+    if blend.init ~= nil then
+        blend.init(mergedConfig)
+    end
+    return mergedConfig
 end
 
 local function blendAll(config, blendNames)
