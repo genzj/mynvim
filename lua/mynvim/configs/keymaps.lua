@@ -24,6 +24,10 @@ set('nnoremap', '<leader>yy', '"+y', 'Copy to system clipboard')
 set('vnoremap', '<leader>yy', '"+y', 'Copy to system clipboard')
 -- Copy all to clipboard
 set('nnoremap', '<silent><leader>yA', '<Cmd>silent %yank+<CR>', 'Copy all to system clipboard')
+-- Paste from clipboard
+set('nnoremap', '<silent><leader>p', '"+p', 'Paste system clipboard after cursor')
+set('nnoremap', '<silent><leader>P', '"+P', 'Paste system clipboard before cursor')
+set('nnoremap', '<silent><leader>gp', '<Cmd>silent put+<CR>', 'Paste system clipboard after current line')
 
 -- hide highlight search
 set('nnoremap', '<silent><F12>', '<Cmd>nohls<CR>', 'Hide highlight search')
