@@ -92,13 +92,13 @@ return {
     -- better diagnostics list and others
     {
         "folke/trouble.nvim",
-        cmd = { "TroubleToggle", "Trouble" },
+        cmd = { "Trouble" },
         opts = {
-            use_diagnostic_signs = true,
+            focus = true,
         },
         keys = {
-            { "<leader>a", "<cmd>TroubleToggle document_diagnostics<cr>", desc = "Document Diagnostics (Trouble)" },
-            { "<leader>A", "<cmd>TroubleToggle workspace_diagnostics<cr>", desc = "Workspace Diagnostics (Trouble)" },
+            { "<leader>a", "<cmd>Trouble diagnostics toggle filter.buf=0<cr>", desc = "Buffer Diagnostics (Trouble)" },
+            { "<leader>A", "<cmd>Trouble diagnostics toggle<cr>", desc = "Workspace Diagnostics (Trouble)" },
         },
     },
 
