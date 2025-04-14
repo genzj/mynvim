@@ -30,15 +30,15 @@ function M.get(buffer)
   if ok then
     vim.list_extend(M._keys, {
       { "gd", telescope.lsp_definitions, desc = "Goto Definition" },
-      { "gr", telescope.lsp_references, desc = "References" },
-      { "gI", telescope.lsp_implementations, desc = "Goto Implementation" },
+      { "grr", telescope.lsp_references, desc = "References" },
+      { "gri", telescope.lsp_implementations, desc = "Goto Implementation" },
       { "gt", telescope.lsp_type_definitions, desc = "Goto Type Definition" },
     })
   else
     vim.list_extend(M._keys, {
       { "gd", vim.lsp.buf.definition, desc = "Goto Definition" },
-      { "gr", vim.lsp.buf.references, desc = "References" },
-      { "gI", vim.lsp.buf.implementation, desc = "Goto Implementation" },
+      { "grr", vim.lsp.buf.references, desc = "References" },
+      { "gri", vim.lsp.buf.implementation, desc = "Goto Implementation" },
       { "gt", vim.lsp.buf.type_definition, desc = "Goto Type Definition" },
     })
   end
