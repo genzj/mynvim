@@ -1,7 +1,7 @@
 -- inspired by https://github.com/LazyVim/starter/blob/main/lua/config/lazy.lua
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 
-if not vim.loop.fs_stat(lazypath) then
+if not vim.uv.fs_stat(lazypath) then
     vim.fn.system({
         "git",
         "clone",
@@ -23,6 +23,7 @@ require("lazy").setup({
     },
     defaults = {
         lazy = true,
+        version = false,
     },
     performance = {
         rtp = {

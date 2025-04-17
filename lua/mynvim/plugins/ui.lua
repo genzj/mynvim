@@ -73,7 +73,6 @@ return {
     -- LSP progress indicator without relying on Noice
     {
         "j-hui/fidget.nvim",
-        version = "^1.1.0",
         config = true,
         event = "VeryLazy",
         enabled = not require("mynvim.configs").switches.use_noice,
@@ -148,8 +147,6 @@ return {
             "BufReadPost",
             "BufWritePost",
         },
-        -- bugs are in the latest commits, use tagged versions
-        version = "^4.0.0",
         keys = {
             { "<leader>bd", function() require('dropbar.api').pick() end, desc = "Pick dropbar" }
         }
