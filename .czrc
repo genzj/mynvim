@@ -3,6 +3,7 @@
   "scopes": [
     "colorscheme",
     "command",
+    "completion",
     "dashboard",
     "gui",
     "keymap",
