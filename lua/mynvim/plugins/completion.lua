@@ -268,6 +268,8 @@ local blink_cmp_spec = {
                 -- <c-k>: Toggle signature help
                 --
                 -- See :h blink-cmp-config-keymap for defining your own keymap
+
+                -- https://cmp.saghen.dev/configuration/keymap.html#super-tab
                 preset = "super-tab",
 
                 ["<CR>"] = { "accept", "fallback" },
@@ -299,22 +301,24 @@ local blink_cmp_spec = {
                 --    https://github.com/L3MON4D3/LuaSnip?tab=readme-ov-file#keymaps
             },
 
-            appearance = {
-                -- 'mono' (default) for 'Nerd Font Mono' or 'normal' for 'Nerd Font'
-                -- Adjusts spacing to ensure icons are aligned
-                nerd_font_variant = "mono",
-            },
-
             completion = {
-                -- By default, you may press `<c-space>` to show the documentation.
+                trigger = {
+                    -- disable to avoid unnecessary requests
+                    prefetch_on_insert = false,
+                },
+
+                -- By default, you may press `<c-space>` or `<c-/>` to show the documentation.
                 -- Optionally, set `auto_show = true` to show the documentation after a delay.
-                documentation = { auto_show = true, auto_show_delay_ms = 1500 },
+                documentation = {
+                    auto_show = true,
+                    auto_show_delay_ms = 1500,
+                },
                 menu = {
                     draw = {
                         components = {
                             kind_icon = {
                                 text = function(ctx)
-                                    return get_kind_icon(ctx.kind)
+                                    return get_kind_icon(ctx.kind) .. ctx.icon_gap
                                 end,
                             },
                         },
@@ -325,6 +329,7 @@ local blink_cmp_spec = {
             sources = {
                 default = { "lsp", "path", "snippets", "lazydev" },
                 providers = {
+                    -- TODO: add minuet-ai: https://github.com/milanglacier/minuet-ai.nvim?tab=readme-ov-file#blink-cmp-setup
                     lazydev = { module = "lazydev.integrations.blink", score_offset = 100 },
                 },
             },

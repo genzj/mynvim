@@ -36,6 +36,8 @@ set.signcolumn = "yes" -- Always show the signcolumn, otherwise it would shift t
 set.grepformat = "%f:%l:%c:%m"
 set.grepprg = "rg --vimgrep"
 
+set.winborder = "single"
+
 if vim.fn.has('win32') == 1 then
     set.guifont = "JetBrainsMonoNL Nerd Font Mono:h12:b"
 else
