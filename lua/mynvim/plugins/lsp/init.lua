@@ -11,6 +11,19 @@ local function on_attach(handler)
   })
 end
 
+---@module "lazy.types"
+---@return LazySpec
+local function get_completion_plugin()
+    local switches = require "mynvim.configs.switches"
+    local cmp_provider = switches.cmp_provider
+    if cmp_provider == "nvim-cmp" then
+        return "hrsh7th/cmp-nvim-lsp"
+    elseif cmp_provider == "blink.cmp" then
+        return "saghen/blink.cmp"
+    end
+    return {}
+end
+
 return {
     -- cmdline tools and lsp servers
     {
@@ -123,6 +136,8 @@ return {
             library = {
                 -- See the configuration section for more details
                 -- Load luvit types when the `vim.uv` word is found
+                -- ${3rd} is a var supported by LuaLS:
+                --   https://github.com/LuaLS/lua-language-server/blob/606ea70d3608bf9cec8b007b7aa499dc94ffb02e/script/files.lua#L914
                 { path = "${3rd}/luv/library", words = { "vim%.uv" } },
             },
         },
@@ -137,7 +152,7 @@ return {
             "folke/lazydev.nvim",
             "mason.nvim",
             "williamboman/mason-lspconfig.nvim",
-            "hrsh7th/cmp-nvim-lsp",
+            get_completion_plugin(),
         },
         ---@class PluginLspOpts
         opts = {
@@ -185,8 +200,14 @@ return {
             opts.diagnostics.signs = signs;
             vim.diagnostic.config(opts.diagnostics)
 
+            local cmp_provider = require("mynvim.configs.switches").cmp_provider
             local servers = opts.servers
-            local capabilities = require("cmp_nvim_lsp").default_capabilities(vim.lsp.protocol.make_client_capabilities())
+            local capabilities = vim.lsp.protocol.make_client_capabilities()
+            if cmp_provider == "nvim-cmp" then
+                capabilities = require("cmp_nvim_lsp").default_capabilities(capabilities)
+            elseif cmp_provider == "blink.cmp" then
+                capabilities = require('blink.cmp').get_lsp_capabilities()
+            end
 
             local function setup(server)
                 local server_opts = servers[server] or {}
