@@ -5,16 +5,9 @@ return {
         event = "VimEnter",
         opts = function()
             local dashboard = require("alpha.themes.dashboard")
-            local logo = [[
- ██████╗  ██████╗ ██╗
-██╔════╝ ██╔═══██╗██║
-██║  ███╗██║   ██║██║
-██║   ██║██║   ██║╚═╝
-╚██████╔╝╚██████╔╝██╗
- ╚═════╝  ╚═════╝ ╚═╝
-            ]]
+            local logo = require("mynvim.configs.logo").daily_logo()
 
-            dashboard.section.header.val = vim.split(logo, "\n")
+            dashboard.section.header.val = logo
             dashboard.section.buttons.val = {
                 dashboard.button("n", " " .. " New file", ":enew<CR>"),
                 dashboard.button("p", " " .. " Clipboard", ':enew<CR>"+p'),
@@ -22,7 +15,6 @@ return {
                 dashboard.button("r", " " .. " Recent files", ":Telescope oldfiles <CR>"),
                 dashboard.button("g", " " .. " Grep", ":Telescope live_grep <CR>"),
                 dashboard.button("c", " " .. " Config", ":call chdir(fnamemodify($MYVIMRC, ':p:h')) <BAR> :e $MYVIMRC <CR>"),
-                -- dashboard.button("s", " " .. " Restore Session", [[:lua require("persistence").load() <cr>]]),
                 dashboard.button("l", "󰒲 " .. " Lazy", ":Lazy<CR>"),
                 dashboard.button("q", " " .. " Quit", ":qa<CR>"),
             }
