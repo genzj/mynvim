@@ -146,7 +146,10 @@ return {
     -- lspconfig
     {
         "neovim/nvim-lspconfig",
-        event = "BufReadPre",
+        event = {
+            "BufReadPost",
+            "BufWritePost",
+        },
         dependencies = {
             { "folke/neoconf.nvim", cmd = "Neoconf", config = true },
             "folke/lazydev.nvim",
@@ -240,8 +243,11 @@ return {
                 end
             end
 
-            require("mason-lspconfig").setup({ ensure_installed = ensure_installed })
+            require("mason-lspconfig").setup({ ensure_installed = ensure_installed, automatic_installation = true })
             require("mason-lspconfig").setup_handlers({ setup })
+
+            -- force triggering lsp, required to make LSP to work after saving a brand new file (BufWritePost event)
+            vim.cmd("LspStart")
         end,
     },
 
