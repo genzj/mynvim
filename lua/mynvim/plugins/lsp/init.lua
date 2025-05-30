@@ -35,7 +35,6 @@ return {
         opts = {
             ensure_installed = require("mynvim.configs").install.mason,
             registries = {
-                "lua:mynvim.mason.registry",
                 "github:mason-org/mason-registry",
             },
         },
@@ -243,8 +242,11 @@ return {
                 end
             end
 
-            require("mason-lspconfig").setup({ ensure_installed = ensure_installed, automatic_installation = true })
-            require("mason-lspconfig").setup_handlers({ setup })
+            require("mason-lspconfig").setup({
+                ensure_installed = ensure_installed,
+                automatic_enable = true,
+            })
+            -- require("mason-lspconfig").setup_handlers({ setup })
 
             -- force triggering lsp, required to make LSP to work after saving a brand new file (BufWritePost event)
             vim.cmd("LspStart")
