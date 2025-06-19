@@ -143,6 +143,7 @@ return {
     },
 
     -- lspconfig
+    -- TODO: consider migrating lsp setup to an auto command, and using lspconfig to provide lsp config only
     {
         "neovim/nvim-lspconfig",
         event = {
