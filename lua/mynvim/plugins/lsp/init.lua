@@ -223,7 +223,7 @@ return {
                         return
                     end
                 end
-                require("lspconfig")[server].setup(server_opts)
+                vim.lsp.config(server, server_opts)
             end
 
             local mlsp = require("mason-lspconfig")
@@ -235,10 +235,11 @@ return {
                     server_opts = server_opts == true and {} or server_opts
                     -- run manual setup if mason=false or if this is a server that cannot be installed with mason-lspconfig
                     if server_opts.mason == false or not vim.tbl_contains(available, server) then
-                        setup(server)
+                        -- ignore mason settings
                     else
                         ensure_installed[#ensure_installed + 1] = server
                     end
+                    setup(server)
                 end
             end
 
@@ -246,10 +247,9 @@ return {
                 ensure_installed = ensure_installed,
                 automatic_enable = true,
             })
-            -- require("mason-lspconfig").setup_handlers({ setup })
 
-            -- force triggering lsp, required to make LSP to work after saving a brand new file (BufWritePost event)
-            vim.cmd("LspStart")
+            -- force triggering lsp, required to make LSP to work after opening or saving files
+            vim.cmd("edit")
         end,
     },
 
