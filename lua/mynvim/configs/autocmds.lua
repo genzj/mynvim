@@ -51,6 +51,7 @@ vim.api.nvim_create_autocmd("FileType", {
   callback = function()
     vim.opt_local.wrap = true
     vim.opt_local.spell = true
+    vim.opt_local.modeline = true
   end,
 })
 
@@ -61,6 +62,10 @@ local g = vim.api.nvim_create_augroup("MyNVim", {
 vim.api.nvim_create_autocmd("FileType", {
     group = g,
     pattern = { "text" },
-    command = [[setlocal textwidth=78]],
+    callback = function()
+        if vim.bo.textwidth == 0 then
+            vim.bo.textwidth = 78
+        end
+    end,
 })
 
