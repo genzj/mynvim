@@ -60,6 +60,10 @@ return {
             { "tpope/vim-repeat", event = "VeryLazy" },
             { "ggandor/flit.nvim", opts = { labeled_modes = "nv" } },
         },
+        keys = {
+            { "<leader>j" },
+            { "<leader>k" },
+        },
         -- leap doesn't use `setup` but opts assignments
         config = function(_, opts)
             local leap = require("leap")
@@ -67,6 +71,21 @@ return {
                 leap.opts[k] = v
             end
             leap.add_default_mappings(true)
+
+            local function leap_line(backward)
+                require('leap').leap {
+                    pattern = '$',
+                    backward = backward,
+                    inputlen = 0,
+                    action = function (event)
+                        local target_line = event.pos[1]
+                        local current_line = vim.fn.getpos('.')[2]
+                        vim.cmd('norm! ' .. math.abs(target_line - current_line) .. (backward and 'k' or 'j'))
+                    end
+                }
+            end
+            vim.keymap.set({'n', 'x', 'o'}, '<leader>j', function () leap_line(false) end, {desc = "Leap Down Lines"})
+            vim.keymap.set({'n', 'x', 'o'}, '<leader>k', function () leap_line(true) end, {desc = "Leap Up Lines"})
         end,
     },
 
