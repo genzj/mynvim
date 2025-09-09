@@ -356,6 +356,11 @@ local function init()
     if cmp_provider == "nvim-cmp" then
         vim.list_extend(M, nvim_cmp_spec)
     elseif cmp_provider == "blink.cmp" then
+        -- build and use the latest version if cargo exists
+        if vim.fn.executable('cargo') == 1 then
+            blink_cmp_spec[1].version = nil
+            blink_cmp_spec[1].build = 'cargo build --release'
+        end
         vim.list_extend(M, blink_cmp_spec)
     else
         vim.notify_once("unsupported completion provider: " .. cmp_provider)
