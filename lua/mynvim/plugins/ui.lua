@@ -1,7 +1,11 @@
 return {
     -- Bmessages.nvim better messages using an auto-updating buffer :Bmessages.
     {
-        "https://github.com/ariel-frischer/bmessages.nvim.git",
+        -- original repo was suspended, using a fork repo before its recovery
+        -- "https://github.com/ariel-frischer/bmessages.nvim.git",
+        "https://github.com/catgoose/bmessages.nvim",
+        commit = "167d2a0",
+
         event = "CmdlineEnter",
         opts = {},
         keys = {

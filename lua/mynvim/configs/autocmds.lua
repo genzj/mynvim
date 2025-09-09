@@ -32,6 +32,7 @@ vim.api.nvim_create_autocmd("FileType", {
   pattern = {
     "qf",
     "help",
+    "bmessages",
     "man",
     "notify",
     "lspinfo",
