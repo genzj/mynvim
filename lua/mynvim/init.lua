@@ -22,6 +22,35 @@ end
 
 vim.opt.rtp:prepend(vim.env.LAZY or lazypath)
 
+
+local vscode_plugins = {
+      "flit.nvim",
+      "lazy.nvim",
+      "leap.nvim",
+      "mini.ai",
+      "mini.comment",
+      "mini.pairs",
+      "mini.surround",
+      "nvim-treesitter",
+      "nvim-treesitter-textobjects",
+      "nvim-ts-context-commentstring",
+      "vim-repeat",
+}
+
+---@param spec LazyPlugin
+local function filter_vscode_plugins(spec)
+    if vim.g.vscode then
+        for _, value in ipairs(vscode_plugins) do
+            if spec.name == value or spec.url:find(value .. "$") or spec.url:find(value .. ".git$") then
+                return true
+            end
+        end
+        return false
+    else
+        return true
+    end
+end
+
 require("lazy").setup({
     spec = {
         { import = "mynvim.plugins" },
@@ -29,6 +58,7 @@ require("lazy").setup({
     defaults = {
         lazy = true,
         version = false,
+        cond = filter_vscode_plugins,
     },
     performance = {
         rtp = {

@@ -55,7 +55,10 @@ return {
             vim.opt.foldmethod = "expr"
             vim.opt.foldexpr = "nvim_treesitter#foldexpr()"
             vim.opt.foldenable = false
-            require("rainbow-delimiters").enable(0)
+            local status, rainbow_delimiters = pcall(require, "rainbow-delimiters")
+            if status then
+                rainbow_delimiters.enable(0)
+            end
         end,
     },
 }
