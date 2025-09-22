@@ -29,11 +29,19 @@ local function init_neovide_ui_modifier()
     )
 end
 
+---- vscode specific settings
+local function configure_nvim()
+    -- make the output panel to popup less
+    -- https://github.com/vscode-neovim/vscode-neovim/issues/2099#issuecomment-2169085647
+    vim.o.cmdheight = 4
+end
+
 local function init()
     if not vim.g.vscode then
         return
     end
 
+    configure_nvim()
     init_neovide_ui_modifier()
 end
 
