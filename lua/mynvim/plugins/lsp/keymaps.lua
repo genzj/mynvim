@@ -11,6 +11,7 @@ function M.get(buffer)
   M._keys = M._keys or {
     { "gD", vim.lsp.buf.declaration, desc = "Goto Declaration" },
     { "gK", vim.lsp.buf.signature_help, desc = "Signature Help", has = "signatureHelp" },
+    { "gh", vim.lsp.buf.hover, desc = "Hover" },
     { "K", vim.lsp.buf.hover, desc = "Hover" },
     { "<c-k>", vim.lsp.buf.signature_help, mode = "i", desc = "Signature Help", has = "signatureHelp" },
     { "]d", M.diagnostic_goto(true), desc = "Next Diagnostic" },
