@@ -80,4 +80,17 @@ function M.is_gui_running()
     return vim.fn.has("gui_running") == 1 or vim.g.gonvim_running == 1 or vim.g.neovide
 end
 
+---find the lazy plugins by name
+---@param name string
+---@return LazyPlugin | nil
+function M.get_plugin_by_name(name)
+    local plugins = require("lazy").plugins()
+    for _, value in pairs(plugins) do
+        if value.name == name then
+            return value
+        end
+    end
+    return nil
+end
+
 return M

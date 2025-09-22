@@ -55,9 +55,9 @@ return {
             vim.opt.foldmethod = "expr"
             vim.opt.foldexpr = "nvim_treesitter#foldexpr()"
             vim.opt.foldenable = false
-            local status, rainbow_delimiters = pcall(require, "rainbow-delimiters")
-            if status then
-                rainbow_delimiters.enable(0)
+            -- the rainbow delimiters plugin will be disabled in vscode
+            if require("mynvim.utils").get_plugin_by_name("rainbow-delimiters.nvim") ~= nil then
+                require("rainbow-delimiters").enable(0)
             end
         end,
     },
