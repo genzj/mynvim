@@ -10,7 +10,8 @@ function M.setup()
     local group = vim.api.nvim_create_augroup("MyNVIMSetup", { clear = true })
     local lazyloads = {
         "mynvim.configs.postplugins",
-        "mynvim.configs.highlight"
+        "mynvim.configs.highlight",
+        "mynvim.configs.vscode"
     }
     if vim.fn.argc() == 0 then
         lazyloads[#lazyloads+1] = "mynvim.configs.autocmds"
