@@ -34,6 +34,20 @@ local function configure_nvim()
     -- make the output panel to popup less
     -- https://github.com/vscode-neovim/vscode-neovim/issues/2099#issuecomment-2169085647
     vim.o.cmdheight = 4
+
+    -- Fix the folding issue: VSCode Neovim plugin doesn't sync the folding with neovim so just diable it.
+    pcall(vim.api.nvim_exec2, "foldopen!", { output=false })
+    vim.opt_global.foldenable = false
+    vim.opt_global.foldmethod = 'manual'
+    vim.opt_local.foldenable = false
+    vim.opt_local.foldmethod = 'manual'
+    -- Use OptionSet to override modeline settings; BufWinEnter is not triggered in testing.
+    vim.api.nvim_create_autocmd("OptionSet", {
+        pattern = { "foldenable" },
+        callback = function()
+            vim.opt_local.foldenable = false
+        end,
+    })
 end
 
 local function init()
