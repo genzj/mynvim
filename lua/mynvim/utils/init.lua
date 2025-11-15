@@ -80,6 +80,14 @@ function M.is_gui_running()
     return vim.fn.has("gui_running") == 1 or vim.g.gonvim_running == 1 or vim.g.neovide
 end
 
+function M.is_linux()
+    return vim.fn.has("linux") == 1
+end
+
+function M.is_mac()
+    return vim.fn.has("mac") == 1
+end
+
 ---find the lazy plugins by name
 ---@param name string
 ---@return LazyPlugin | nil

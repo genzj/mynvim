@@ -1,5 +1,6 @@
 local set = require('mynvim.utils.keymap').set
 local group = require('mynvim.utils.keymap').group
+local utils = require('mynvim.utils')
 
 -- Don't use Ex mode, use Q for formatting
 set('map', 'Q', 'gq', 'Formatting')
@@ -24,6 +25,10 @@ set('noremap', '<leader>y', '"+y', 'Copy to system clipboard')
 set('nnoremap', '<silent><leader>p', '"+p', 'Paste system clipboard after cursor')
 set('nnoremap', '<silent><leader>P', '"+P', 'Paste system clipboard before cursor')
 set('nnoremap', '<silent><leader>gp', '<Cmd>silent put+<CR>', 'Paste system clipboard after current line')
+if utils.is_linux() and utils.is_gui_running() then
+    -- Linux GUI inserts <S-Insert> by default and this is a fix
+    set('inoremap', '<silent><S-Insert>', '<C-r>+', 'Insert system clipboard content')
+end
 
 -- hide highlight search
 set('nnoremap', '<silent><F12>', '<Cmd>nohls<CR>', 'Hide highlight search')
@@ -48,15 +53,13 @@ set('onoremap', '<silent>A', ':<C-U>normal! ggVG<CR>', 'The entire buffer')
 set('nnoremap', '<silent>vA', '<Esc>ggVG', 'Mark the entire buffer in visual mode')
 set('nnoremap', '<silent>VA', '<Esc>ggVG', 'Mark the entire buffer in visual mode')
 
-if require("mynvim.utils").is_gui_running() then
-    if vim.fn.has('mac') == 1 then
-        set('nnoremap', '<D-v>', 'o<Esc>"+p')
-        set('inoremap', '<D-v>', '<C-r>+')
-        set('cnoremap', '<D-v>', '<C-r>+')
-        set('snoremap', '<D-c>', '"+y')
-        set('vnoremap', '<D-c>', '"+y')
-        set('snoremap', '<D-x>', '"+d')
-        set('vnoremap', '<D-x>', '"+d')
-    end
+if utils.is_mac() and utils.is_gui_running() then
+    set('nnoremap', '<D-v>', 'o<Esc>"+p')
+    set('inoremap', '<D-v>', '<C-r>+')
+    set('cnoremap', '<D-v>', '<C-r>+')
+    set('snoremap', '<D-c>', '"+y')
+    set('vnoremap', '<D-c>', '"+y')
+    set('snoremap', '<D-x>', '"+d')
+    set('vnoremap', '<D-x>', '"+d')
 end
 
