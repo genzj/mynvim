@@ -18,12 +18,8 @@ set('nnoremap', '<silent><down>', '<Cmd>wincmd j<CR>', 'Window below')
 set('nnoremap', '<silent><right>', '<Cmd>wincmd l<CR>', 'Window at right')
 set('nnoremap', '<silent><left>', '<Cmd>wincmd h<CR>', 'Window at left')
 
--- Copy clipboard
-group('<leader>y', 'Copy to system clipboard or terminal')
-set('nnoremap', '<leader>yy', '"+y', 'Copy to system clipboard')
-set('vnoremap', '<leader>yy', '"+y', 'Copy to system clipboard')
--- Copy all to clipboard
-set('nnoremap', '<silent><leader>yA', '<Cmd>silent %yank+<CR>', 'Copy all to system clipboard')
+-- Copy to clipboard
+set('noremap', '<leader>y', '"+y', 'Copy to system clipboard')
 -- Paste from clipboard
 set('nnoremap', '<silent><leader>p', '"+p', 'Paste system clipboard after cursor')
 set('nnoremap', '<silent><leader>P', '"+P', 'Paste system clipboard before cursor')
@@ -45,6 +41,12 @@ set('inoremap', '<S-space>', '<Esc>')
 
 -- Change cwd to the file path
 set('nnoremap', '<leader>cd', ':cd %:p:h<CR>:pwd<CR>', 'Set CWD to folder of current buffer')
+
+-- Motions
+set('onoremap', '<silent>A', ':<C-U>normal! ggVG<CR>', 'The entire buffer')
+-- patch for visual mode because the `A` has a default behavior to enter insert mode
+set('nnoremap', '<silent>vA', '<Esc>ggVG', 'Mark the entire buffer in visual mode')
+set('nnoremap', '<silent>VA', '<Esc>ggVG', 'Mark the entire buffer in visual mode')
 
 if require("mynvim.utils").is_gui_running() then
     if vim.fn.has('mac') == 1 then
