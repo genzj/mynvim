@@ -54,6 +54,7 @@ return {
     -- easily jump to any location and enhanced f/t motions for Leap
     {
         "ggandor/leap.nvim",
+        url = "https://codeberg.org/andyg/leap.nvim",
         event = "VeryLazy",
         dependencies = {
             -- vim-repeat is needed to make dot-repeat work with the flit.nvim
