@@ -60,9 +60,22 @@ return {
             -- vim-repeat is needed to make dot-repeat work with the flit.nvim
             { "tpope/vim-repeat", event = "VeryLazy" },
         },
+        opts={
+            -- disable autoump
+            safe_labels='',
+        },
         keys = {
-            { "<leader>j" },
-            { "<leader>k" },
+            { "<leader>j", mode= {'n', 'x', 'o'} },
+            { "<leader>k", mode= {'n', 'x', 'o'} },
+
+            -- Suggested arrangements
+            { "s" ,  '<Plug>(leap-forward)'     , mode= {'n', 'x', 'o'} },
+            { "S" ,  '<Plug>(leap-backward)'    , mode= {'n', 'x', 'o'} },
+            { "x" , '<Plug>(leap-from-window)'  , mode= {'x', 'o'} },
+            { "X" , '<Plug>(leap-anywhere)'     , mode= {'x', 'o'} },
+            -- conflit with gS (toggle arguments tailing newlines)
+            -- { "gs", '<Plug>(leap-forward-till)' , mode= {'n'} },
+            -- { "gS", '<Plug>(leap-backward-till)', mode= {'n'} },
         },
         -- leap doesn't use `setup` but opts assignments
         config = function(_, opts)
@@ -70,7 +83,29 @@ return {
             for k, v in pairs(opts) do
                 leap.opts[k] = v
             end
-            leap.add_default_mappings(true)
+
+            -- Highly recommended: define a preview filter to reduce visual noise
+            -- and the blinking effect after the first keypress
+            -- (see `:h leap.opts.preview`).
+            -- For example, skip preview if the first character of the match is
+            -- whitespace or is in the middle of an alphabetic word:
+            require('leap').opts.preview = function(ch0, ch1, ch2)
+                return not (
+                    ch1:match('%s')
+                    or (ch0:match('%a') and ch1:match('%a') and ch2:match('%a'))
+                )
+            end
+
+            -- Treesitter integration
+            -- use the traversal keys for incremental selection (e.g. `vRRy`)
+            vim.keymap.set({'x', 'o'}, 'R',  function()
+                require('leap.treesitter').select {
+                    -- To increase/decrease the selection in a clever-f-like manner,
+                    -- with the trigger key itself (vRRRRrr...). The default keys
+                    -- (<enter>/<backspace>) also work, so feel free to skip this.
+                    opts = require('leap.user').with_traversal_keys('R', 'r')
+                }
+            end)
 
             local function leap_line(backward)
                 require('leap').leap {
