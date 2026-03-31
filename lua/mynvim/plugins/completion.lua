@@ -243,6 +243,7 @@ local blink_cmp_spec = {
             "folke/lazydev.nvim",
             "L3MON4D3/LuaSnip",
         },
+        build = 'cargo build --release',
         ---@module 'blink.cmp'
         ---@type blink.cmp.Config
         opts = {

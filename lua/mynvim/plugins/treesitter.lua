@@ -9,7 +9,7 @@ return {
     },
     {
         "nvim-treesitter/nvim-treesitter",
-        version = false, -- last release is way too old and doesn't work on Windows
+        lazy = false,
         build = ":TSUpdate",
         event = {
             "BufReadPost",
@@ -25,8 +25,7 @@ return {
         ---@type TSConfig
         ---@diagnostic disable-next-line
         opts = {
-            ensure_installed = require("mynvim.configs").install.treesitter,
-            indent = { enable = true },
+            -- TODO not working with new TS
             incremental_selection = {
                 enable = true,
                 keymaps = {
@@ -36,6 +35,7 @@ return {
                     node_decremental = "<bs>",
                 },
             },
+            -- TODO migrate to the new TS
             highlight = {
                 enable = true,
                 -- disable slow treesitter highlight for large files
@@ -49,12 +49,22 @@ return {
                 end,
             },
         },
-        ---@param opts TSConfig
         config = function(_, opts)
-            require("nvim-treesitter.configs").setup(opts)
+            local ts = require("nvim-treesitter")
+            ts.setup(opts)
+            ts.install(require("mynvim.configs").install.treesitter)
+
             vim.opt.foldmethod = "expr"
             vim.opt.foldexpr = "nvim_treesitter#foldexpr()"
             vim.opt.foldenable = false
+
+            vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+
+            vim.g.rainbow_delimiters = {
+                -- log = { level = vim.log.levels.TRACE },
+            }
+
+            -- TODO rainbow not working with the new TS
             -- the rainbow delimiters plugin will be disabled in vscode
             if require("mynvim.utils").get_plugin_by_name("rainbow-delimiters.nvim") ~= nil then
                 require("rainbow-delimiters").enable(0)
