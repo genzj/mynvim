@@ -54,17 +54,16 @@ return {
             ts.setup(opts)
             ts.install(require("mynvim.configs").install.treesitter)
 
-            vim.opt.foldmethod = "expr"
-            vim.opt.foldexpr = "nvim_treesitter#foldexpr()"
-            vim.opt.foldenable = false
+            -- syntax highlighting, provided by Neovim
+            vim.treesitter.start()
+            -- folds, provided by Neovim
+            vim.wo.foldexpr = 'v:lua.vim.treesitter.foldexpr()'
+            vim.wo.foldmethod = 'expr'
+            vim.wo.foldenable = false
 
+            -- indentation, provided by nvim-treesitter
             vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
 
-            vim.g.rainbow_delimiters = {
-                -- log = { level = vim.log.levels.TRACE },
-            }
-
-            -- TODO rainbow not working with the new TS
             -- the rainbow delimiters plugin will be disabled in vscode
             if require("mynvim.utils").get_plugin_by_name("rainbow-delimiters.nvim") ~= nil then
                 require("rainbow-delimiters").enable(0)
