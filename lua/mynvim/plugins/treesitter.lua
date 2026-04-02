@@ -113,7 +113,7 @@ return {
 
                     -- the rainbow delimiters plugin will be disabled in vscode
                     if require("mynvim.utils").get_plugin_by_name("rainbow-delimiters.nvim") ~= nil then
-                        require("rainbow-delimiters").enable(args.buf)
+                        require("rainbow-delimiters").enable(0)
                     end
 
                     -- incremental selection
