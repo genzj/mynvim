@@ -50,24 +50,58 @@ return {
             },
         },
         config = function(_, opts)
+            local ts_config = require("mynvim.configs")
+            local supported_ts = ts_config.install.treesitter
             local ts = require("nvim-treesitter")
             ts.setup(opts)
-            ts.install(require("mynvim.configs").install.treesitter)
+            ts.install(supported_ts)
 
-            -- syntax highlighting, provided by Neovim
-            vim.treesitter.start()
-            -- folds, provided by Neovim
-            vim.wo.foldexpr = 'v:lua.vim.treesitter.foldexpr()'
-            vim.wo.foldmethod = 'expr'
-            vim.wo.foldenable = false
+            local supported_fts = {}
+            -- Use a temporary table to track unique filetypes to avoid duplicates
+            local seen_fts = {}
 
-            -- indentation, provided by nvim-treesitter
-            vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+            for _, lang in ipairs(supported_ts) do
+                -- get_filetypes returns a table (e.g., {"javascript", "javascriptreact"})
+                local fts = vim.treesitter.language.get_filetypes(lang)
 
-            -- the rainbow delimiters plugin will be disabled in vscode
-            if require("mynvim.utils").get_plugin_by_name("rainbow-delimiters.nvim") ~= nil then
-                require("rainbow-delimiters").enable(0)
+                if fts then
+                    for _, ft in ipairs(fts) do
+                        if not seen_fts[ft] then
+                            table.insert(supported_fts, ft)
+                            seen_fts[ft] = true
+                        end
+                    end
+                end
             end
+
+            local ts_config_grp = vim.api.nvim_create_augroup("MyVIMTSConfigGroup", { clear = true })
+
+            vim.api.nvim_create_autocmd("FileType", {
+                group = ts_config_grp,
+                pattern = supported_fts,
+                callback = function(args)
+                    -- syntax highlighting, provided by Neovim
+                    vim.treesitter.start()
+
+                    -- find all windows displaying this buffer and update window-local options
+                    local windows = vim.fn.getbufinfo(args.buf)[1].windows
+                    for _, win_id in ipairs(windows) do
+                        -- folds, provided by Neovim
+                        vim.api.nvim_set_option_value('foldmethod', 'expr', {win=win_id})
+                        vim.api.nvim_set_option_value('foldexpr', 'v:lua.vim.treesitter.foldexpr()', {win=win_id})
+                        vim.api.nvim_set_option_value('foldenable', false, {win=win_id})
+                    end
+
+                    -- indentation, provided by nvim-treesitter
+                    vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+
+                    -- the rainbow delimiters plugin will be disabled in vscode
+                    if require("mynvim.utils").get_plugin_by_name("rainbow-delimiters.nvim") ~= nil then
+                        require("rainbow-delimiters").enable(0)
+                    end
+                end,
+            })
+
         end,
     },
 }
