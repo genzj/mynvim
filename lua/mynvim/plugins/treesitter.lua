@@ -1,3 +1,12 @@
+-- disable slow treesitter highlight for large files
+local function is_file_large_than(buf, max_filesize)
+    local ok, stats = pcall(vim.uv.fs_stat, vim.api.nvim_buf_get_name(buf))
+    if ok and stats and stats.size > max_filesize then
+        return true
+    end
+    return false
+end
+
 ---@module 'lazy.types'
 ---@type LazySpec[]
 return {
@@ -8,15 +17,29 @@ return {
         lazy = true,
     },
     {
+        'genzj/nvim-treesitter-incremental-selection',
+        dependencies = {
+            "nvim-treesitter/nvim-treesitter",
+        },
+        config = function()
+            local tsis = require("nvim-treesitter-incremental-selection")
+
+            ---@type TSIS.Config
+            tsis.setup({
+                ignore_injections = false,
+                loop_siblings = false,
+                fallback = false,
+                quiet = false,
+            })
+        end
+    },
+    {
         "nvim-treesitter/nvim-treesitter",
         lazy = false,
         build = ":TSUpdate",
         event = {
             "BufReadPost",
             "BufWritePost",
-        },
-        dependencies = {
-            "nvim-treesitter/nvim-treesitter",
         },
         keys = {
             { "<c-/>", desc = "Init/Increment selection" },
@@ -25,16 +48,6 @@ return {
         ---@type TSConfig
         ---@diagnostic disable-next-line
         opts = {
-            -- TODO not working with new TS
-            incremental_selection = {
-                enable = true,
-                keymaps = {
-                    init_selection = "<C-/>",
-                    node_incremental = "<C-/>",
-                    scope_incremental = "<nop>",
-                    node_decremental = "<bs>",
-                },
-            },
             -- TODO migrate to the new TS
             highlight = {
                 enable = true,
@@ -75,13 +88,16 @@ return {
             end
 
             local ts_config_grp = vim.api.nvim_create_augroup("MyVIMTSConfigGroup", { clear = true })
-
             vim.api.nvim_create_autocmd("FileType", {
                 group = ts_config_grp,
                 pattern = supported_fts,
                 callback = function(args)
+                    if is_file_large_than(args.buf, 1024 * 1024) then
+                        return
+                    end
+
                     -- syntax highlighting, provided by Neovim
-                    vim.treesitter.start()
+                    vim.treesitter.start(args.buf)
 
                     -- find all windows displaying this buffer and update window-local options
                     local windows = vim.fn.getbufinfo(args.buf)[1].windows
@@ -93,12 +109,18 @@ return {
                     end
 
                     -- indentation, provided by nvim-treesitter
-                    vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+                    vim.bo[args.buf].indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
 
                     -- the rainbow delimiters plugin will be disabled in vscode
                     if require("mynvim.utils").get_plugin_by_name("rainbow-delimiters.nvim") ~= nil then
-                        require("rainbow-delimiters").enable(0)
+                        require("rainbow-delimiters").enable(args.buf)
                     end
+
+                    -- incremental selection
+                    local tsis = require("nvim-treesitter-incremental-selection")
+                    vim.keymap.set("n", "<c-/>", tsis.init_selection, {buf = args.buf})
+                    vim.keymap.set("v", "<c-/>", tsis.increment_node, {buf = args.buf})
+                    vim.keymap.set("v", "<bs>", tsis.decrement_node, {buf = args.buf})
                 end,
             })
 
