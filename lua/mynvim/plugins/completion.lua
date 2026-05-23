@@ -243,7 +243,6 @@ local blink_cmp_spec = {
             "folke/lazydev.nvim",
             "L3MON4D3/LuaSnip",
         },
-        build = 'cargo build --release',
         ---@module 'blink.cmp'
         ---@type blink.cmp.Config
         opts = {
@@ -360,7 +359,9 @@ local function init()
         -- build and use the latest version if cargo exists
         if vim.fn.executable('cargo') == 1 then
             blink_cmp_spec[1].version = nil
-            blink_cmp_spec[1].build = 'cargo build --release'
+            blink_cmp_spec[1].build = function() require('blink.cmp').build():wait(60000) end
+            local deps = vim.list_extend({"saghen/blink.lib"}, blink_cmp_spec[1].dependencies)
+            blink_cmp_spec[1].dependencies = deps
         end
         vim.list_extend(M, blink_cmp_spec)
     else
