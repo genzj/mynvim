@@ -145,7 +145,11 @@ return {
     },
 
     {
-        "Bekaboo/dropbar.nvim",
+        -- "Bekaboo/dropbar.nvim",
+
+        -- https://github.com/Bekaboo/dropbar.nvim/pull/280
+        "cubewhy/dropbar.nvim",
+        branch = 'fix-event',
         event = {
             "BufWinEnter",
             "BufReadPost",
