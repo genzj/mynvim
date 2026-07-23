@@ -250,7 +250,20 @@ return {
             })
 
             -- force triggering lsp, required to make LSP to work after opening or saving files
-            vim.cmd("edit")
+            -- Wrapped in pcall so a stale swap file (E325) can't abort the whole
+            -- `config` callback and leave lspconfig half-initialized.
+            local ok, err = pcall(vim.cmd, "edit")
+            if not ok then
+                -- E325 (swap file "ATTENTION") is expected when a swap file for
+                -- the buffer already exists, so don't bother the user about it.
+                local is_swapfile_issue = tostring(err):match("E325") ~= nil
+                if not is_swapfile_issue then
+                    vim.notify(
+                        "lsp: failed to re-trigger via :edit: " .. tostring(err),
+                        vim.log.levels.WARN
+                    )
+                end
+            end
         end,
     },
 
