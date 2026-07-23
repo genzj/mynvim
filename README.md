@@ -13,12 +13,12 @@
     1. Create the virtualenv and install dependencies into it by:
         ```sh
         cd ~/.config/nvim/
-        mise install python@3.11
+        mise install python@3.14
         python -m venv ~/.venvs/nvim
         which pip  # make sure the output shows a path to virtualenv, e.g. ~/.venvs/nvim/bin/pip
         pip install -U -r requirements.txt
         ```
-    1. Alternatively, a Python 3.11+ virtualenv can be created in any of the
+    1. Alternatively, a Python 3.14+ virtualenv can be created in any of the
        following path with any other methods. `configs/python.lua` will search
        for virtualenv in the same order:
         - `$WORKON_HOME/nvim/`
