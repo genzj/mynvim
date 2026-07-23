@@ -19,7 +19,7 @@
         pip install -U -r requirements.txt
         ```
     1. Alternatively, a Python 3.14+ virtualenv can be created in any of the
-       following path with any other methods. `configs/python.lua` will search
+       following path with any other methods. `configs/providers.lua` will search
        for virtualenv in the same order:
         - `$WORKON_HOME/nvim/`
         - `~/.venvs/nvim/`
