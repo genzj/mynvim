@@ -1,5 +1,6 @@
-pynvim == 0.4.3
+# pynvim >= 0.5 required for Python 3.12+ (older releases import the removed `imp` module)
+pynvim >= 0.6.0
 
 # markdown preview
 #   https://github.com/joeyespo/grip
-grip == 4.6.1
+grip >= 4.6.2
