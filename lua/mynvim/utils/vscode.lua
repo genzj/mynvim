@@ -9,6 +9,7 @@ M.vscode_plugins = {
       "mini.pairs",
       "mini.surround",
       "nvim-treesitter",
+      "incselect.nvim",
       "nvim-treesitter-textobjects",
       "nvim-ts-context-commentstring",
       "vim-repeat",

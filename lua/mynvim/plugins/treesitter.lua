@@ -17,21 +17,8 @@ return {
         lazy = true,
     },
     {
-        'genzj/nvim-treesitter-incremental-selection',
-        dependencies = {
-            "nvim-treesitter/nvim-treesitter",
-        },
-        config = function()
-            local tsis = require("nvim-treesitter-incremental-selection")
-
-            ---@type TSIS.Config
-            tsis.setup({
-                ignore_injections = false,
-                loop_siblings = false,
-                fallback = false,
-                quiet = false,
-            })
-        end
+        'shushtain/incselect.nvim',
+        lazy = true,
     },
     {
         "nvim-treesitter/nvim-treesitter",
@@ -41,9 +28,15 @@ return {
             "BufReadPost",
             "BufWritePost",
         },
+        dependencies = {
+            "shushtain/incselect.nvim",
+        },
         keys = {
             { "<c-/>", desc = "Init/Increment selection" },
-            { "<bs>", desc = "Schrink selection", mode = "x" },
+            { "<bs>", desc = "Shrink selection", mode = "x" },
+            { "<Tab>", desc = "Next sibling node", mode = "x" },
+            { "<S-Tab>", desc = "Prev sibling node", mode = "x" },
+            { "<S-CR>", desc = "Child node", mode = "x" },
         },
         ---@type TSConfig
         ---@diagnostic disable-next-line
@@ -117,10 +110,13 @@ return {
                     end
 
                     -- incremental selection
-                    local tsis = require("nvim-treesitter-incremental-selection")
-                    vim.keymap.set("n", "<c-/>", tsis.init_selection, {buf = args.buf})
-                    vim.keymap.set("v", "<c-/>", tsis.increment_node, {buf = args.buf})
-                    vim.keymap.set("v", "<bs>", tsis.decrement_node, {buf = args.buf})
+                    local incselect = require("incselect")
+                    vim.keymap.set("n", "<c-/>", incselect.init, { buffer = args.buf })
+                    vim.keymap.set("x", "<c-/>", incselect.parent, { buffer = args.buf })
+                    vim.keymap.set("x", "<bs>", incselect.undo, { buffer = args.buf })
+                    vim.keymap.set("x", "<Tab>", incselect.next, { buffer = args.buf })
+                    vim.keymap.set("x", "<S-Tab>", incselect.prev, { buffer = args.buf })
+                    vim.keymap.set("x", "<S-CR>", incselect.child, { buffer = args.buf })
                 end,
             })
 
