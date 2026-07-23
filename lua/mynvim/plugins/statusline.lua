@@ -9,7 +9,6 @@ return {
         },
         opts = function(plugin)
             local icons = require("mynvim.configs.icons").icons.ui
-            local use_noice = require("mynvim.configs").switches.use_noice
 
             local function fg(name)
                 return function()
@@ -79,23 +78,6 @@ return {
                         },
                     },
                     lualine_x = {
-                        -- stylua: ignore
-                        {
-                            function() return require("noice").api.status.command.get() end,
-                            cond = function() return use_noice and require("noice").api.status.command.has() end,
-                            color = fg("Statement")
-                        },
-                        -- stylua: ignore
-                        {
-                            function() return require("noice").api.status.mode.get() end,
-                            cond = function() return use_noice and require("noice").api.status.mode.has() end,
-                            color = fg("Constant") ,
-                        },
-                        {
-                            function() return require("noice").api.status.search.get() end,
-                            cond = function() return use_noice and require("noice").api.status.search.has() end,
-                            color = fg("WarningMsg"),
-                        },
                         -- Lazy update indicator
                         -- { require("lazy.status").updates, cond = require("lazy.status").has_updates, color = fg("Special") },
                         { "fancy_diff", },
@@ -107,7 +89,6 @@ return {
                         { getWords, icon=icons.word },
                         { selectionCount, cond = isVisualMode },
                         { "fancy_searchcount",
-                            cond = invert(use_noice),
                             fmt = function (s)
                                 if string.len(s) > 0 then
                                     return vim.fn.getreg("/") .. " [" .. s .. "]"

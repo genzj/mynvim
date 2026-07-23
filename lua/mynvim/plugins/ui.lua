@@ -16,70 +16,30 @@ return {
             }
         },
     },
-    -- better vim.notify
-    {
-        "rcarriga/nvim-notify",
-        keys = function ()
-            require('mynvim.utils').keymap.try_add({
-                { "<leader>u", group = "Notifications" },
-            })
-            return {
-                {
-                    "<leader>un",
-                    function()
-                        require("notify").dismiss({ silent = true, pending = true })
-                    end,
-                    desc = "Delete all Notifications",
-                },
-            }
-        end,
-        opts = {
-            timeout = 3000,
-            max_height = function()
-                return math.floor(vim.o.lines * 0.75)
-            end,
-            max_width = function()
-                return math.floor(vim.o.columns * 0.75)
-            end,
-        },
-    },
-    -- noicer ui
-    {
-        "folke/noice.nvim",
-        event = "VeryLazy",
-        enabled = require("mynvim.configs").switches.use_noice,
-        opts = {
-            lsp = {
-                override = {
-                    ["vim.lsp.util.convert_input_to_markdown_lines"] = true,
-                    ["vim.lsp.util.stylize_markdown"] = true,
-                },
-            },
-            presets = {
-                bottom_search = true,
-                command_palette = true,
-                long_message_to_split = true,
-            },
-        },
-        -- stylua: ignore
-        keys = function ()
-            require('mynvim.utils').keymap.group("<leader>u", "Notifications")
-            return {
-                { "<S-Enter>", function() require("noice").redirect(vim.fn.getcmdline()) end, mode = "c", desc = "Redirect Cmdline" },
-                { "<leader>ul", function() require("noice").cmd("last") end, desc = "Noice Last Message" },
-                { "<leader>uh", function() require("noice").cmd("history") end, desc = "Noice History" },
-                { "<leader>ua", function() require("noice").cmd("all") end, desc = "Noice All" },
-                { "<c-f>", function() if not require("noice.lsp").scroll(4) then return "<c-f>" end end, silent = true, expr = true, desc = "Scroll forward" },
-                { "<c-b>", function() if not require("noice.lsp").scroll(-4) then return "<c-b>" end end, silent = true, expr = true, desc = "Scroll backward"},
-            }
-        end,
-    },
-    -- LSP progress indicator without relying on Noice
+    -- LSP progress indicator + blanket vim.notify backend
     {
         "j-hui/fidget.nvim",
-        config = true,
         event = "VeryLazy",
-        enabled = not require("mynvim.configs").switches.use_noice,
+        keys = function()
+            require("mynvim.utils").keymap.group("<leader>u", "Notifications")
+            return {
+                { "<leader>un", "<Cmd>Fidget clear<CR>", desc = "Dismiss Notifications" },
+                {
+                    "<leader>uh",
+                    function()
+                        require("telescope").load_extension("fidget")
+                        require("telescope").extensions.fidget.fidget()
+                    end,
+                    desc = "Notification History (Telescope)",
+                },
+            }
+        end,
+        opts = {
+            notification = {
+                override_vim_notify = true,   -- fidget becomes the global vim.notify
+                filter = vim.log.levels.INFO, -- minimum level to surface (fidget default)
+            },
+        },
     },
     -- better vim.ui
     {
