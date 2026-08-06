@@ -34,12 +34,12 @@ return {
 				end
 
 				local language = vim.filetype.match({ filename = base_fname })
-				-- print("base_fname=" .. base_fname .. " current injection language: " .. (language == nil and "" or language))
+				-- vim.notify("base_fname=" .. base_fname .. " current injection language: " .. (language == nil and "" or language), vim.log.levels.INFO)
 
 				if language == nil or language == "" then
 					local ext = get_injected_ext(fname)
 					language = fallback_filetype[ext]
-					-- print("base_fname=" .. base_fname .. " ext=" .. ext .. " current injection language: " .. (language == nil and "" or language))
+					-- vim.notify("base_fname=" .. base_fname .. " ext=" .. ext .. " current injection language: " .. (language == nil and "" or language), vim.log.levels.INFO)
 				end
 
 				if language ~= nil and language ~= "" then
